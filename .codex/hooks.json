@@ -11,6 +11,17 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$(git rev-parse --show-toplevel)/.claude/hooks/journal-demarrage.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   }
 }

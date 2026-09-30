@@ -16,6 +16,7 @@ Codex CLI sert de second avis et de générateur d'images. Toujours passer par l
 - `codex` : consulter Codex (avis critique, idées, revue, image).
 - `maj-magasin` : modifier horaires, fermetures ou services d'un magasin, avec synchro fiche Google.
 - `seo-local` : checklist SEO local + GEO avant toute mise en ligne d'une page.
+- `journal` : entrée de fin de session dans `docs/prive/journal/`.
 - `deploy` : à créer au moment de la mise en ligne.
 
 ## Agents du projet (`.claude/agents/`)
@@ -28,6 +29,7 @@ Codex CLI sert de second avis et de générateur d'images. Toujours passer par l
 - `anti-cadratin.sh` : signale tout tiret cadratin dans un fichier modifié (partagé avec Codex).
 - `rappel-secrets.sh` : avertit quand un fichier `.env*` ou un secret apparent est touché.
 - `astro-check-stop.sh` : lance `astro check` en fin de réponse si le code a changé.
+- `journal-demarrage.sh` : injecte la dernière entrée du journal au démarrage (partagé avec Codex).
 
 Angle mort : les hooks Edit/Write ne voient pas les fichiers modifiés par Bash (`sed`, heredoc). Relire soi-même dans ce cas.
 

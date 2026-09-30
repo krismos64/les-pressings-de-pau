@@ -31,7 +31,7 @@ Skill `deploy` : à écrire au moment de la mise en ligne (workflow GitHub Actio
 | -------------------- | ------------------------------------------------------------------------------------------------------ |
 | `.codex/config.toml` | workspace-write, on-request, reasoning high, web search live, MCP Astro et Cloudflare. Modèle non figé |
 | `.codex/hooks.json`  | Même hook anti-cadratin (outil `apply_patch`)                                                          |
-| `.agents/skills/`    | Liens vers `maj-magasin` et `seo-local` (une seule source dans `.claude/skills/`)                      |
+| `.agents/skills/`    | Liens vers `maj-magasin`, `seo-local` et `journal` (une seule source dans `.claude/skills/`)           |
 
 Le projet est « trusted » dans `~/.codex/config.toml` (condition pour charger `.codex/`).
 **À faire une fois** : dans Codex interactif, `/hooks` pour approuver le hook (l'approbation est liée à son contenu, à refaire après modification).

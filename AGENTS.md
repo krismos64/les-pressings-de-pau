@@ -73,6 +73,10 @@ Node 24 via nvm (`.nvmrc`, `nvm use`). Commandes : `npm run dev`, `npm run build
 
 Mentions légales par société exploitante, médiateur de la consommation, politique de confidentialité (hébergeur Cloudflare, États-Unis, Data Privacy Framework), consentement avant tout traceur, droits sur les photos, accord écrit pour citer un client.
 
+## Journal de session
+
+`docs/prive/journal/` (privé, non versionné) garde la mémoire du projet d'une session à l'autre, pour Claude Code et Codex. La dernière entrée est injectée au démarrage par un hook. En fin de session, rédiger l'entrée avec le skill `journal` : fait, décidé, appris, en attente, prochaine étape.
+
 ## Git et sécurité
 
 - `main` = production. Push direct autorisé, pas de PR obligatoire.
