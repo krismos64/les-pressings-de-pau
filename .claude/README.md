@@ -9,17 +9,17 @@ Mise en place le 30 septembre 2026, chaque choix validé par Christophe.
 
 ## Claude Code (`.claude/`)
 
-| Élément | Rôle |
-|---|---|
-| `settings.json` | Permissions du projet (aucun deny), `wrangler deploy` en confirmation, attribution désactivée, MCP du projet approuvés, hooks |
-| `hooks/anti-cadratin.sh` | PostToolUse Edit/Write : signale les tirets U+2014 et U+2013. Partagé avec Codex |
-| `hooks/rappel-secrets.sh` | PostToolUse Edit/Write : rappel si `.env*` ou secret apparent |
-| `hooks/astro-check-stop.sh` | Stop : `astro check` si le code a changé depuis la dernière vérification. Silencieux tant qu'Astro n'est pas installé |
-| `skills/codex` | Consulter Codex (avis, idées, review, image) |
-| `skills/maj-magasin` | Modifier un magasin + synchro fiche Google |
-| `skills/seo-local` | Checklist SEO local + GEO |
-| `agents/verificateur-contenu` | Lecture seule : infos inventées, formules vagues, cadratins |
-| `agents/auditeur-seo-local` | Lecture seule : audit du site construit + Lighthouse |
+| Élément                       | Rôle                                                                                                                          |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `settings.json`               | Permissions du projet (aucun deny), `wrangler deploy` en confirmation, attribution désactivée, MCP du projet approuvés, hooks |
+| `hooks/anti-cadratin.sh`      | PostToolUse Edit/Write : signale les tirets U+2014 et U+2013. Partagé avec Codex                                              |
+| `hooks/rappel-secrets.sh`     | PostToolUse Edit/Write : rappel si `.env*` ou secret apparent                                                                 |
+| `hooks/astro-check-stop.sh`   | Stop : `astro check` si le code a changé depuis la dernière vérification. Silencieux tant qu'Astro n'est pas installé         |
+| `skills/codex`                | Consulter Codex (avis, idées, review, image)                                                                                  |
+| `skills/maj-magasin`          | Modifier un magasin + synchro fiche Google                                                                                    |
+| `skills/seo-local`            | Checklist SEO local + GEO                                                                                                     |
+| `agents/verificateur-contenu` | Lecture seule : infos inventées, formules vagues, cadratins                                                                   |
+| `agents/auditeur-seo-local`   | Lecture seule : audit du site construit + Lighthouse                                                                          |
 
 Tous les hooks sont **non bloquants**. Angle mort : un fichier modifié via Bash (`sed`, heredoc) ne déclenche pas les hooks Edit/Write.
 
@@ -27,11 +27,11 @@ Skill `deploy` : à écrire au moment de la mise en ligne (workflow GitHub Actio
 
 ## Codex (`.codex/`, `.agents/`)
 
-| Élément | Rôle |
-|---|---|
+| Élément              | Rôle                                                                                                   |
+| -------------------- | ------------------------------------------------------------------------------------------------------ |
 | `.codex/config.toml` | workspace-write, on-request, reasoning high, web search live, MCP Astro et Cloudflare. Modèle non figé |
-| `.codex/hooks.json` | Même hook anti-cadratin (outil `apply_patch`) |
-| `.agents/skills/` | Liens vers `maj-magasin` et `seo-local` (une seule source dans `.claude/skills/`) |
+| `.codex/hooks.json`  | Même hook anti-cadratin (outil `apply_patch`)                                                          |
+| `.agents/skills/`    | Liens vers `maj-magasin` et `seo-local` (une seule source dans `.claude/skills/`)                      |
 
 Le projet est « trusted » dans `~/.codex/config.toml` (condition pour charger `.codex/`).
 **À faire une fois** : dans Codex interactif, `/hooks` pour approuver le hook (l'approbation est liée à son contenu, à refaire après modification).

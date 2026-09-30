@@ -1,0 +1,15 @@
+{
+  "ordre": 2,
+  "enseigne": "MJ Pressing",
+  "repere": "Galerie Auchan",
+  "adresse": {
+    "rue": "21 avenue Didier-Daurat",
+    "codePostal": "64140",
+    "ville": "Lons"
+  },
+  "telephone": "+33559620994",
+  "horaires": {
+    "statut": "a-confirmer"
+  },
+  "fermetures": []
+}

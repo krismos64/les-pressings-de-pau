@@ -1,0 +1,39 @@
+---
+// Page provisoire : valide la chaîne données > pages. Le design viendra ensuite.
+import { getCollection, getEntry } from "astro:content";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { telephoneAffichage } from "../lib/horaires.ts";
+
+const reseau = await getEntry("reseau", "reseau");
+if (!reseau) throw new Error("src/content/reseau/reseau.json manquant");
+
+const magasins = (await getCollection("magasins")).sort(
+  (a, b) => a.data.ordre - b.data.ordre,
+);
+---
+
+<BaseLayout title={reseau.data.signature} description={reseau.data.description}>
+  <main class="mx-auto max-w-3xl p-4">
+    <h1 class="text-2xl font-bold">{reseau.data.signature}</h1>
+    <ul class="mt-6 grid gap-4">
+      {magasins.map(({ data }) => (
+        <li class="rounded border p-4">
+          <h2 class="font-semibold">{data.enseigne}</h2>
+          <p>
+            {data.repere && <>{data.repere}, </>}
+            {data.adresse.rue}, {data.adresse.codePostal} {data.adresse.ville}
+          </p>
+          <p>
+            <a href={`tel:${data.telephone}`}>
+              {telephoneAffichage(data.telephone)}
+            </a>
+          </p>
+          {data.horaires.statut === "a-confirmer" && (
+            <p>Horaires : appelez le magasin.</p>
+          )}
+        </li>
+      ))}
+    </ul>
+  </main>
+</BaseLayout>

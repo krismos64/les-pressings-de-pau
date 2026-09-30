@@ -1,0 +1,15 @@
+{
+  "ordre": 1,
+  "enseigne": "Clean Discount",
+  "repere": "Pau centre",
+  "adresse": {
+    "rue": "7 place du Foirail",
+    "codePostal": "64000",
+    "ville": "Pau"
+  },
+  "telephone": "+33559309275",
+  "horaires": {
+    "statut": "a-confirmer"
+  },
+  "fermetures": []
+}

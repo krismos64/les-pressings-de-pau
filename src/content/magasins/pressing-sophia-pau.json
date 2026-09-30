@@ -1,0 +1,15 @@
+{
+  "ordre": 3,
+  "enseigne": "Pressing Sophia",
+  "repere": "Centre commercial Prima",
+  "adresse": {
+    "rue": "318 boulevard de la Paix",
+    "codePostal": "64000",
+    "ville": "Pau"
+  },
+  "telephone": "+33559626458",
+  "horaires": {
+    "statut": "a-confirmer"
+  },
+  "fermetures": []
+}

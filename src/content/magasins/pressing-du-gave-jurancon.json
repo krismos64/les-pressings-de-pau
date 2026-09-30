@@ -1,0 +1,15 @@
+{
+  "ordre": 5,
+  "enseigne": "Pressing du Gave",
+  "repere": "Centre commercial Beaugency",
+  "adresse": {
+    "rue": "Avenue des Vallées",
+    "codePostal": "64110",
+    "ville": "Jurançon"
+  },
+  "telephone": "+33559063114",
+  "horaires": {
+    "statut": "a-confirmer"
+  },
+  "fermetures": []
+}

@@ -12,13 +12,13 @@ Répondre et rédiger en français.
 
 ## Les magasins
 
-| Enseigne | Adresse | Téléphone |
-|---|---|---|
-| Clean Discount | 7 place du Foirail, 64000 Pau | 05 59 30 92 75 |
-| MJ Pressing | Galerie Auchan, 21 av. Didier-Daurat, 64140 Lons | 05 59 62 09 94 |
-| Pressing Sophia | Centre commercial Prima, 318 bd de la Paix, 64000 Pau | 05 59 62 64 58 |
-| Pressing Notre-Dame | 7 bd Alsace-Lorraine, 64000 Pau | 05 59 30 38 82 |
-| Pressing du Gave | Centre commercial Beaugency, av. des Vallées, 64110 Jurançon | 05 59 06 31 14 |
+| Enseigne            | Adresse                                                      | Téléphone      |
+| ------------------- | ------------------------------------------------------------ | -------------- |
+| Clean Discount      | 7 place du Foirail, 64000 Pau                                | 05 59 30 92 75 |
+| MJ Pressing         | Galerie Auchan, 21 av. Didier-Daurat, 64140 Lons             | 05 59 62 09 94 |
+| Pressing Sophia     | Centre commercial Prima, 318 bd de la Paix, 64000 Pau        | 05 59 62 64 58 |
+| Pressing Notre-Dame | 7 bd Alsace-Lorraine, 64000 Pau                              | 05 59 30 38 82 |
+| Pressing du Gave    | Centre commercial Beaugency, av. des Vallées, 64110 Jurançon | 05 59 06 31 14 |
 
 - Horaires, services et informations internes : uniquement ceux fournis par Christophe (voir le contexte confidentiel). Ne jamais en reprendre d'un annuaire ou de Google.
 - Tous les prix sont identiques dans les cinq magasins.
@@ -37,7 +37,7 @@ Pages : accueil, `/pressings/` + une page par magasin, `/services/`, `/professio
 - Domaine et e-mail chez **OVH**, DNS délégués à Cloudflare au moment de la mise en ligne.
 - Plus tard, peut-être : **Sveltia CMS** pour que le client édite horaires, fermetures et textes.
 
-Commandes (à confirmer une fois le projet initialisé) : `npm run dev`, `npm run build`, `npm run preview`, `npm run check` (astro check), `npm run lint`, `npm run format`.
+Node 24 via nvm (`.nvmrc`, `nvm use`). Commandes : `npm run dev`, `npm run build`, `npm run preview`, `npm run check` (astro check), `npm run lint`, `npm run format`, `npm test` (tests des horaires, `node --test`), `npm run verif-publication` (liste ce qui reste à valider avant la mise en ligne).
 
 ## Règles d'architecture
 

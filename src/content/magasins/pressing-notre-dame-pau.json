@@ -1,0 +1,14 @@
+{
+  "ordre": 4,
+  "enseigne": "Pressing Notre-Dame",
+  "adresse": {
+    "rue": "7 boulevard Alsace-Lorraine",
+    "codePostal": "64000",
+    "ville": "Pau"
+  },
+  "telephone": "+33559303882",
+  "horaires": {
+    "statut": "a-confirmer"
+  },
+  "fermetures": []
+}
