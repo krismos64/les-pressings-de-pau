@@ -12,6 +12,7 @@ import { magasinsTries, urlMagasin } from "../lib/magasins.ts";
 const reseau = await getEntry("reseau", "reseau");
 if (!reseau) throw new Error("src/content/reseau/reseau.json manquant");
 const magasins = await magasinsTries();
+const pro = await getEntry("professionnels", "professionnels");
 
 const site = Astro.site ?? new URL("https://lespressingsdepau.fr");
 const jsonLd = [
@@ -76,4 +77,26 @@ const jsonLd = [
       ))}
     </div>
   </section>
+  {pro && (
+    <section class="bg-fond-doux py-12">
+      <div class="mx-auto max-w-3xl px-4 text-center">
+        <TitreSection>Pour les professionnels</TitreSection>
+        <p class="mt-6">{pro.data.accroche}</p>
+        <ul class="mt-4 space-y-3">
+          {pro.data.points.map((p) => (
+            <li>
+              <strong class="block text-titre">{p.titre}</strong>
+              {p.texte}
+            </li>
+          ))}
+        </ul>
+        <a
+          href="/professionnels/"
+          class="mt-6 inline-block rounded bg-bleu-fonce px-5 py-3 text-sm font-bold text-white uppercase no-underline"
+        >
+          Offre professionnels
+        </a>
+      </div>
+    </section>
+  )}
 </BaseLayout>

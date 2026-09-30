@@ -136,6 +136,19 @@ const reseau = defineCollection({
   }),
 });
 
+// Offre aux professionnels (faits confirmés par Christophe le 30/09/2026).
+const professionnels = defineCollection({
+  loader: glob({ base: "./src/content/professionnels", pattern: "*.json" }),
+  schema: z.object({
+    accroche: z.string().min(1),
+    clients: z.array(z.string().min(1)).min(1),
+    points: z
+      .array(z.object({ titre: z.string().min(1), texte: z.string().min(1) }))
+      .min(1),
+    contact: reference("magasins"),
+  }),
+});
+
 export const collections = {
   magasins,
   services,
@@ -143,4 +156,5 @@ export const collections = {
   societes,
   faq,
   reseau,
+  professionnels,
 };

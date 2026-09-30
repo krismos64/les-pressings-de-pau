@@ -1,0 +1,15 @@
+{
+  "accroche": "Nous travaillons avec des hôtels et des entreprises à Pau et dans ses environs.",
+  "clients": ["Hôtels", "Entreprises"],
+  "points": [
+    {
+      "titre": "Collecte et livraison",
+      "texte": "Nous venons chercher votre linge et nous vous le rapportons propre."
+    },
+    {
+      "titre": "Hôtels : retour le jour même",
+      "texte": "Le linge collecté le matin vous est rapporté prêt dans la journée, avant 17h."
+    }
+  ],
+  "contact": "pressing-sophia-pau"
+}

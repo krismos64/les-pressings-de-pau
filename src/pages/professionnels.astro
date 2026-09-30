@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+
+import TitreSection from "../components/TitreSection.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import illustration from "../assets/illustrations/service-lavage.jpg";
+import { telephoneAffichage } from "../lib/horaires.ts";
+
+const pro = await getEntry("professionnels", "professionnels");
+if (!pro)
+  throw new Error("src/content/professionnels/professionnels.json manquant");
+const contact = await getEntry(pro.data.contact);
+if (!contact) throw new Error("Magasin de contact introuvable");
+const tel = telephoneAffichage(contact.data.telephone);
+// « Hôtels et entreprises » : seule la première lettre en majuscule.
+const clients = pro.data.clients
+  .map((c, i) => (i === 0 ? c : c.toLowerCase()))
+  .join(" et ");
+---
+
+<BaseLayout
+  title="Pressing pour les professionnels et les hôtels à Pau"
+  description={`${pro.data.accroche} Collecte et livraison du linge. Contact : ${contact.data.enseigne}, ${tel}.`}
+>
+  <div class="bg-bleu-fonce py-10 text-center text-white">
+    <h1 class="font-display text-4xl">Professionnels</h1>
+    <p class="mx-auto mt-3 max-w-xl px-4">
+      {clients} à Pau et dans ses environs
+    </p>
+  </div>
+
+  <section class="mx-auto grid max-w-5xl items-center gap-8 px-4 py-12 md:grid-cols-2">
+    <Image
+      src={illustration}
+      alt="Linge de lit propre et plié sur une table"
+      widths={[400, 640, 960]}
+      sizes="(min-width: 768px) 45vw, 100vw"
+      class="aspect-[4/3] w-full rounded object-cover"
+    />
+    <div>
+      <p class="text-lg">{pro.data.accroche}</p>
+      <ul class="mt-6 space-y-5">
+        {pro.data.points.map((p) => (
+          <li class="border-l-4 border-bleu pl-4">
+            <h2 class="font-display text-2xl text-bleu">{p.titre}</h2>
+            <p class="mt-1">{p.texte}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-fond-doux py-12">
+    <div class="mx-auto max-w-3xl px-4 text-center">
+      <TitreSection>Mettre en place la collecte</TitreSection>
+      <p class="mt-6">
+        Appelez le {contact.data.enseigne} pour organiser la collecte de votre
+        linge :
+      </p>
+      <a
+        href={`tel:${contact.data.telephone}`}
+        class="mt-5 inline-block rounded bg-bleu-fonce px-6 py-3 text-lg font-bold text-white no-underline"
+      >
+        {tel}
+      </a>
+      <p class="mt-8">
+        <a href="/services/" class="font-semibold">
+          Voir les articles que nous nettoyons
+        </a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

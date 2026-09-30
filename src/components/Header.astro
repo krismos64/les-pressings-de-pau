@@ -1,19 +1,26 @@
 ---
 // Logo texte provisoire (en attendant un vrai logo) + menu, onglet actif en bleu plein.
+// Mobile : menu déroulant natif (<details>), sans JavaScript.
 const liens = [
   { href: "/", libelle: "Accueil" },
   { href: "/pressings/", libelle: "Nos pressings" },
   { href: "/services/", libelle: "Services" },
   { href: "/tarifs/", libelle: "Tarifs" },
+  { href: "/professionnels/", libelle: "Professionnels" },
 ];
 
 const chemin = Astro.url.pathname;
 const actif = (href: string): boolean =>
   href === "/" ? chemin === "/" : chemin.startsWith(href);
+
+const classeLien = (href: string): string[] => [
+  "block rounded px-3 py-2 text-[13px] font-semibold tracking-wide uppercase no-underline",
+  actif(href) ? "bg-bleu-fonce text-white" : "text-titre hover:text-bleu-fonce",
+];
 ---
 
 <header class="sticky top-0 z-30 border-b border-filet bg-white/95 backdrop-blur">
-  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 md:py-4">
+  <div class="relative mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 md:py-4">
     <a
       href="/"
       class="leading-none no-underline"
@@ -24,19 +31,15 @@ const actif = (href: string): boolean =>
         de Pau
       </span>
     </a>
-    <nav aria-label="Navigation principale">
+
+    <nav aria-label="Navigation principale" class="hidden md:block">
       <ul class="flex gap-1">
         {liens.map(({ href, libelle }) => (
           <li>
             <a
               href={href}
               aria-current={actif(href) ? "page" : undefined}
-              class:list={[
-                "block rounded px-3 py-2 text-[13px] font-semibold tracking-wide uppercase no-underline",
-                actif(href)
-                  ? "bg-bleu-fonce text-white"
-                  : "text-titre hover:text-bleu-fonce",
-              ]}
+              class:list={classeLien(href)}
             >
               {libelle}
             </a>
@@ -44,5 +47,30 @@ const actif = (href: string): boolean =>
         ))}
       </ul>
     </nav>
+
+    <details class="group md:hidden">
+      <summary class="cursor-pointer list-none rounded border border-bleu-fonce px-4 py-2 text-[13px] font-semibold text-bleu-fonce uppercase [&::-webkit-details-marker]:hidden">
+        <span class="group-open:hidden">Menu</span>
+        <span class="hidden group-open:inline">Fermer</span>
+      </summary>
+      <nav
+        aria-label="Navigation principale (mobile)"
+        class="absolute inset-x-0 top-full border-b border-filet bg-white px-4 py-3 shadow-md"
+      >
+        <ul class="grid gap-1">
+          {liens.map(({ href, libelle }) => (
+            <li>
+              <a
+                href={href}
+                aria-current={actif(href) ? "page" : undefined}
+                class:list={classeLien(href)}
+              >
+                {libelle}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </details>
   </div>
 </header>

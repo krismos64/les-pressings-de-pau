@@ -23,6 +23,7 @@ Répondre et rédiger en français.
 - Horaires, services et informations internes : uniquement ceux fournis par Christophe (voir le contexte confidentiel). Ne jamais en reprendre d'un annuaire ou de Google.
 - Tous les prix sont identiques dans les cinq magasins, et tous les magasins proposent tous les articles de la grille (`src/content/tarifs.json`).
 - Seuls ces cinq magasins figurent sur le site.
+- Professionnels (hôtels, entreprises autour de Pau) : collecte et livraison du linge ; pour les hôtels, collecte le matin et retour le jour même avant 17h. Contact : Pressing Sophia. Pas de livraison pour les particuliers.
 
 ## Périmètre
 
