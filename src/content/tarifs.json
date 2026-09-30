@@ -1,1 +1,424 @@
-[]
+[
+  {
+    "id": "anorak",
+    "categorie": "vetements",
+    "libelle": "Anorak",
+    "montantTTCCentimes": 1650
+  },
+  {
+    "id": "beret-casquette",
+    "categorie": "vetements",
+    "libelle": "Béret, casquette",
+    "montantTTCCentimes": 590
+  },
+  {
+    "id": "bermuda-short",
+    "categorie": "vetements",
+    "libelle": "Bermuda, short",
+    "montantTTCCentimes": 680
+  },
+  {
+    "id": "blouse-de-travail",
+    "categorie": "vetements",
+    "libelle": "Blouse de travail",
+    "montantTTCCentimes": 670
+  },
+  {
+    "id": "blouson",
+    "categorie": "vetements",
+    "libelle": "Blouson",
+    "montantTTCCentimes": 1350
+  },
+  {
+    "id": "blouson-de-ski",
+    "categorie": "vetements",
+    "libelle": "Blouson de ski",
+    "montantTTCCentimes": 1920
+  },
+  {
+    "id": "blouson-plume",
+    "categorie": "vetements",
+    "libelle": "Blouson plume",
+    "montantTTCCentimes": 2100
+  },
+  {
+    "id": "cape",
+    "categorie": "vetements",
+    "libelle": "Cape",
+    "montantTTCCentimes": 860
+  },
+  {
+    "id": "chemise",
+    "categorie": "vetements",
+    "libelle": "Chemise",
+    "montantTTCCentimes": 490,
+    "selection": true
+  },
+  {
+    "id": "chemisier",
+    "categorie": "vetements",
+    "libelle": "Chemisier",
+    "montantTTCCentimes": 650
+  },
+  {
+    "id": "combinaison-de-ski",
+    "categorie": "vetements",
+    "libelle": "Combinaison de ski",
+    "montantTTCCentimes": 2190
+  },
+  {
+    "id": "combinaison-de-travail",
+    "categorie": "vetements",
+    "libelle": "Combinaison de travail",
+    "montantTTCCentimes": 950
+  },
+  {
+    "id": "cravate",
+    "categorie": "vetements",
+    "libelle": "Cravate",
+    "montantTTCCentimes": 620
+  },
+  {
+    "id": "djellaba",
+    "categorie": "vetements",
+    "libelle": "Djellaba",
+    "montantTTCCentimes": 1850
+  },
+  {
+    "id": "echarpe-etole",
+    "categorie": "vetements",
+    "libelle": "Écharpe, étole",
+    "montantTTCCentimes": 690
+  },
+  {
+    "id": "foulard",
+    "categorie": "vetements",
+    "libelle": "Foulard",
+    "montantTTCCentimes": 750
+  },
+  {
+    "id": "gant",
+    "categorie": "vetements",
+    "libelle": "Gant",
+    "montantTTCCentimes": 800
+  },
+  {
+    "id": "gilet-laine-costume-matelasse",
+    "categorie": "vetements",
+    "libelle": "Gilet (laine, costume, matelassé)",
+    "montantTTCCentimes": 780
+  },
+  {
+    "id": "impermeable",
+    "categorie": "vetements",
+    "libelle": "Imperméable",
+    "montantTTCCentimes": 1850
+  },
+  {
+    "id": "jupe",
+    "categorie": "vetements",
+    "libelle": "Jupe",
+    "montantTTCCentimes": 820,
+    "selection": true
+  },
+  {
+    "id": "jupe-plissee",
+    "categorie": "vetements",
+    "libelle": "Jupe plissée",
+    "montantTTCCentimes": 1250
+  },
+  {
+    "id": "jupe-hakama",
+    "categorie": "vetements",
+    "libelle": "Jupe hakama",
+    "montantTTCCentimes": 1590
+  },
+  {
+    "id": "kimono",
+    "categorie": "vetements",
+    "libelle": "Kimono",
+    "montantTTCCentimes": 1700
+  },
+  {
+    "id": "manteau",
+    "categorie": "vetements",
+    "libelle": "Manteau",
+    "montantTTCCentimes": 1620,
+    "selection": true
+  },
+  {
+    "id": "manteau-plume",
+    "categorie": "vetements",
+    "libelle": "Manteau plume",
+    "montantTTCCentimes": 2250,
+    "selection": true
+  },
+  {
+    "id": "pantalon",
+    "categorie": "vetements",
+    "libelle": "Pantalon",
+    "montantTTCCentimes": 780,
+    "selection": true
+  },
+  {
+    "id": "pantalon-de-ski",
+    "categorie": "vetements",
+    "libelle": "Pantalon de ski",
+    "montantTTCCentimes": 1240
+  },
+  {
+    "id": "parka",
+    "categorie": "vetements",
+    "libelle": "Parka",
+    "montantTTCCentimes": 1450
+  },
+  {
+    "id": "peignoir",
+    "categorie": "vetements",
+    "libelle": "Peignoir",
+    "montantTTCCentimes": 1020
+  },
+  {
+    "id": "polo",
+    "categorie": "vetements",
+    "libelle": "Polo",
+    "montantTTCCentimes": 530
+  },
+  {
+    "id": "pull",
+    "categorie": "vetements",
+    "libelle": "Pull",
+    "montantTTCCentimes": 640,
+    "selection": true
+  },
+  {
+    "id": "robe",
+    "categorie": "vetements",
+    "libelle": "Robe",
+    "montantTTCCentimes": 1250,
+    "selection": true
+  },
+  {
+    "id": "robe-de-soiree",
+    "categorie": "vetements",
+    "libelle": "Robe de soirée",
+    "montantTTCCentimes": 3400,
+    "selection": true
+  },
+  {
+    "id": "robe-de-chambre",
+    "categorie": "vetements",
+    "libelle": "Robe de chambre",
+    "montantTTCCentimes": 1400
+  },
+  {
+    "id": "salopette",
+    "categorie": "vetements",
+    "libelle": "Salopette",
+    "montantTTCCentimes": 1500
+  },
+  {
+    "id": "tee-shirt",
+    "categorie": "vetements",
+    "libelle": "Tee-shirt",
+    "montantTTCCentimes": 490
+  },
+  {
+    "id": "veste",
+    "categorie": "vetements",
+    "libelle": "Veste",
+    "montantTTCCentimes": 920,
+    "selection": true
+  },
+  {
+    "id": "alese",
+    "categorie": "articles-specifiques",
+    "libelle": "Alèse",
+    "montantTTCCentimes": 900
+  },
+  {
+    "id": "aube",
+    "categorie": "articles-specifiques",
+    "libelle": "Aube",
+    "montantTTCCentimes": 2500
+  },
+  {
+    "id": "boutis",
+    "categorie": "articles-specifiques",
+    "libelle": "Boutis",
+    "montantTTCCentimes": 2000
+  },
+  {
+    "id": "couette-plume",
+    "categorie": "articles-specifiques",
+    "libelle": "Couette plume",
+    "montantTTCCentimes": 4200,
+    "selection": true
+  },
+  {
+    "id": "couette-synthetique",
+    "categorie": "articles-specifiques",
+    "libelle": "Couette synthétique",
+    "montantTTCCentimes": 2400,
+    "selection": true
+  },
+  {
+    "id": "coussin-traversin",
+    "categorie": "articles-specifiques",
+    "libelle": "Coussin, traversin",
+    "montantTTCCentimes": 1000
+  },
+  {
+    "id": "coussin-traversin-plume",
+    "categorie": "articles-specifiques",
+    "libelle": "Coussin, traversin plume",
+    "montantTTCCentimes": 1500
+  },
+  {
+    "id": "couverture",
+    "categorie": "articles-specifiques",
+    "libelle": "Couverture",
+    "montantTTCCentimes": 1900,
+    "selection": true
+  },
+  {
+    "id": "cuir",
+    "categorie": "articles-specifiques",
+    "libelle": "Cuir",
+    "montantTTCCentimes": 8800,
+    "selection": true
+  },
+  {
+    "id": "daim",
+    "categorie": "articles-specifiques",
+    "libelle": "Daim",
+    "montantTTCCentimes": 7600,
+    "selection": true
+  },
+  {
+    "id": "dessus-de-lit",
+    "categorie": "articles-specifiques",
+    "libelle": "Dessus de lit",
+    "montantTTCCentimes": 1900
+  },
+  {
+    "id": "doubles-rideaux-doubles",
+    "categorie": "articles-specifiques",
+    "libelle": "Doubles rideaux doublés",
+    "montantTTCCentimes": 2400
+  },
+  {
+    "id": "doubles-rideaux-simples",
+    "categorie": "articles-specifiques",
+    "libelle": "Doubles rideaux simples",
+    "montantTTCCentimes": 1900
+  },
+  {
+    "id": "draps-simples",
+    "categorie": "articles-specifiques",
+    "libelle": "Draps simples",
+    "montantTTCCentimes": 580
+  },
+  {
+    "id": "drap-housse",
+    "categorie": "articles-specifiques",
+    "libelle": "Drap housse",
+    "montantTTCCentimes": 640
+  },
+  {
+    "id": "housse-de-canape-clic-clac",
+    "categorie": "articles-specifiques",
+    "libelle": "Housse de canapé clic-clac",
+    "montantTTCCentimes": 4600
+  },
+  {
+    "id": "housse-de-couette",
+    "categorie": "articles-specifiques",
+    "libelle": "Housse de couette",
+    "montantTTCCentimes": 820
+  },
+  {
+    "id": "nappe-grande",
+    "categorie": "articles-specifiques",
+    "libelle": "Nappe grande",
+    "montantTTCCentimes": 1900
+  },
+  {
+    "id": "nappe-simple",
+    "categorie": "articles-specifiques",
+    "libelle": "Nappe simple",
+    "montantTTCCentimes": 1400
+  },
+  {
+    "id": "reimpermeabilisation",
+    "categorie": "articles-specifiques",
+    "libelle": "Réimperméabilisation",
+    "montantTTCCentimes": 700,
+    "supplement": true
+  },
+  {
+    "id": "replissage-de-jupe",
+    "categorie": "articles-specifiques",
+    "libelle": "Replissage de jupe",
+    "montantTTCCentimes": 500,
+    "supplement": true
+  },
+  {
+    "id": "rideaux",
+    "categorie": "articles-specifiques",
+    "libelle": "Rideaux",
+    "montantTTCCentimes": 1400,
+    "selection": true
+  },
+  {
+    "id": "robe-de-mariee",
+    "categorie": "articles-specifiques",
+    "libelle": "Robe de mariée",
+    "montantTTCCentimes": 9800,
+    "selection": true
+  },
+  {
+    "id": "sac-de-couchage",
+    "categorie": "articles-specifiques",
+    "libelle": "Sac de couchage",
+    "montantTTCCentimes": 1800
+  },
+  {
+    "id": "sac-de-couchage-plume",
+    "categorie": "articles-specifiques",
+    "libelle": "Sac de couchage plume",
+    "montantTTCCentimes": 2500
+  },
+  {
+    "id": "serviette-de-table",
+    "categorie": "articles-specifiques",
+    "libelle": "Serviette de table",
+    "montantTTCCentimes": 130
+  },
+  {
+    "id": "serviette-de-toilette-et-de-bain",
+    "categorie": "articles-specifiques",
+    "libelle": "Serviette de toilette et de bain",
+    "montantTTCCentimes": 290
+  },
+  {
+    "id": "taie",
+    "categorie": "articles-specifiques",
+    "libelle": "Taie",
+    "montantTTCCentimes": 190
+  },
+  {
+    "id": "tapis",
+    "categorie": "articles-specifiques",
+    "libelle": "Tapis",
+    "montantTTCCentimes": 2200,
+    "unite": "m2",
+    "selection": true
+  },
+  {
+    "id": "torchon-gant-de-toilette",
+    "categorie": "articles-specifiques",
+    "libelle": "Torchon, gant de toilette",
+    "montantTTCCentimes": 200
+  }
+]

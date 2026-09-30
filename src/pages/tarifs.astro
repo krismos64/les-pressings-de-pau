@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+
+import TitreSection from "../components/TitreSection.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const tarifs = await getCollection("tarifs");
+const selection = tarifs.filter((t) => t.data.selection);
+
+const prix = (centimes: number): string =>
+  new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(
+    centimes / 100,
+  );
+
+const groupes = [
+  { categorie: "vetements", titre: "Vêtements" },
+  {
+    categorie: "articles-specifiques",
+    titre: "Linge de maison et articles spécifiques",
+  },
+] as const;
+---
+
+<BaseLayout
+  title="Tarifs du pressing à Pau, Lons et Jurançon"
+  description="Prix du nettoyage des vêtements, couettes, rideaux, tapis, cuir et robes de mariée. Les mêmes tarifs dans nos cinq pressings de Pau, Lons et Jurançon."
+>
+  <div class="bg-bleu py-10 text-center text-white">
+    <h1 class="font-display text-4xl">Nos tarifs</h1>
+    <p class="mx-auto mt-3 max-w-xl px-4">
+      Les mêmes prix dans nos cinq pressings.
+    </p>
+  </div>
+
+  <div class="mx-auto grid max-w-5xl gap-12 px-4 py-12 md:grid-cols-2">
+    {groupes.map(({ categorie, titre }) => {
+      const lignes = selection.filter((t) => t.data.categorie === categorie);
+      return (
+        <section>
+          <TitreSection>{titre}</TitreSection>
+          <table class="mt-6 w-full">
+            <caption class="sr-only">Tarifs : {titre}</caption>
+            <thead class="sr-only">
+              <tr>
+                <th scope="col">Article</th>
+                <th scope="col">Prix</th>
+              </tr>
+            </thead>
+            <tbody>
+              {lignes.map((t) => (
+                <tr class="border-b border-filet">
+                  <th scope="row" class="py-2 text-left font-normal">
+                    {t.data.libelle}
+                  </th>
+                  <td class="py-2 text-right font-semibold whitespace-nowrap text-titre tabular-nums">
+                    {prix(t.data.montantTTCCentimes)}
+                    {t.data.unite === "m2" && " le m²"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      );
+    })}
+  </div>
+
+  <div class="mx-auto max-w-3xl space-y-3 px-4 pb-14 text-sm">
+    <p>
+      <strong class="text-titre">Prestation délicate :</strong> un supplément de
+      20 % est appliqué sur les articles qui nécessitent un traitement spécial.
+    </p>
+    <p>
+      Prix TTC. La liste complète des articles et de leurs prix est affichée
+      dans chaque magasin.
+    </p>
+  </div>
+</BaseLayout>

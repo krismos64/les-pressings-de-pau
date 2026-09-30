@@ -81,23 +81,18 @@ const services = defineCollection({
   }),
 });
 
-// Prix communs aux cinq magasins, en centimes TTC.
+// Grille de prix commune aux cinq magasins (panneau en magasin), en centimes TTC.
+// `selection` : lignes affichées sur la page Tarifs, le reste reste disponible dans les données.
 const tarifs = defineCollection({
   loader: file("src/content/tarifs.json"),
-  schema: z
-    .object({
-      service: reference("services"),
-      libelle: z.string().min(1),
-      mode: z.enum(["fixe", "a-partir-de", "sur-devis"]),
-      unite: z.enum(["piece", "m2", "kg"]).default("piece"),
-      montantTTCCentimes: z.number().int().positive().optional(),
-    })
-    .refine(
-      (t) => t.mode === "sur-devis" || t.montantTTCCentimes !== undefined,
-      {
-        message: "Montant obligatoire sauf pour un tarif sur devis",
-      },
-    ),
+  schema: z.object({
+    categorie: z.enum(["vetements", "articles-specifiques"]),
+    libelle: z.string().min(1),
+    montantTTCCentimes: z.number().int().positive(),
+    unite: z.enum(["piece", "m2"]).default("piece"),
+    supplement: z.boolean().default(false),
+    selection: z.boolean().default(false),
+  }),
 });
 
 // Entités juridiques (mentions légales). Champs facultatifs tant que le dossier est incomplet.
