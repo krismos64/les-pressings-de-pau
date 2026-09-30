@@ -14,7 +14,7 @@ Codex CLI sert de second avis et de générateur d'images. Toujours passer par l
 ## Skills du projet (`.claude/skills/`)
 
 - `codex` : consulter Codex (avis critique, idées, revue, image).
-- `maj-magasin` : modifier horaires, fermetures ou services d'un magasin, avec synchro fiche Google.
+- `maj-magasin` : modifier horaires, fermetures, coordonnées ou photos d'un magasin, avec synchro fiche Google.
 - `seo-local` : checklist SEO local + GEO avant toute mise en ligne d'une page.
 - `journal` : entrée de fin de session dans `docs/prive/journal/`.
 - `deploy` : à créer au moment de la mise en ligne.
@@ -35,5 +35,5 @@ Angle mort : les hooks Edit/Write ne voient pas les fichiers modifiés par Bash 
 
 ## Méthode de travail
 
-- Christophe tranche les décisions : proposer une recommandation, ne pas décider seul.
+- Christophe tranche ce qui engage le projet ou le client (architecture, contenu publié, coûts, commits et push) : proposer une recommandation, ne pas décider seul. Les petits choix d'outillage interne : les faire, puis les annoncer.
 - Vérifier la doc à jour (MCP Astro Docs, MCP Cloudflare Docs, Context7) avant d'utiliser une API Astro, Tailwind ou Cloudflare. Signaler l'usage de Context7.

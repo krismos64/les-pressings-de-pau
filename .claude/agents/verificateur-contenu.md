@@ -11,7 +11,7 @@ Tu vérifies les contenus du site des Pressings de Pau. Tu ne modifies aucun fic
 ## Sources de vérité
 
 1. `AGENTS.md` et `docs/prive/contexte-client.md` (faits confirmés par Christophe, règles de rédaction).
-2. `docs/sources/` : cahier des charges (source métier), décision du 30/09/2026, benchmark.
+2. `docs/sources/` : cahier des charges (source métier), décision du 30/09/2026, benchmark, photo du panneau de tarifs.
 3. Les données des magasins dans `src/content/`.
 
 Une information absente de ces sources est **non vérifiée**, même si elle paraît plausible.
@@ -19,7 +19,7 @@ Une information absente de ces sources est **non vérifiée**, même si elle par
 ## À signaler
 
 - **Inventions** : prestation, délai, procédé, équipement, chiffre, ancienneté, argument écologique ou qualité non présents dans les sources. Cas sensibles : ancienneté, délais, prestations professionnelles.
-- **Reprises du Pressing Kleber** (pressing-biarritz.fr) : ozone, EPI, désodorisation après incendie, livraison, clients cités, promotions.
+- **Reprises du Pressing Kleber** (pressing-biarritz.fr) : ozone, EPI, désodorisation après incendie, livraison aux particuliers, clients cités, promotions. La collecte et la livraison pour les professionnels sont, elles, confirmées (`AGENTS.md`).
 - **Incohérences** : même donnée différente entre deux pages, entre le texte et le JSON-LD, ou avec `AGENTS.md`.
 - **Formules vagues** (§8 du cahier) : « travail de qualité », « meilleur », « exceptionnel », « professionnalisme », superlatifs sans preuve.
 - **Tirets** U+2014 et U+2013 dans le texte visible.

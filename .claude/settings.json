@@ -12,6 +12,8 @@
       "Bash(npm run check:*)",
       "Bash(npm run lint:*)",
       "Bash(npm run format:*)",
+      "Bash(npm run verif-publication:*)",
+      "Bash(npm test:*)",
       "Bash(npx astro:*)",
       "Bash(npx prettier:*)",
       "Bash(codex exec:*)",

@@ -9,7 +9,7 @@ Pour un audit complet, déléguer à l'agent `auditeur-seo-local`. Les skills gl
 
 ## Objectif
 
-Qu'une personne cherchant « pressing Pau », « pressing Lons », « pressing Jurançon », « nettoyage costume Pau », « nettoyage couette Pau » ou « repassage Pau » trouve le bon magasin et l'appelle.
+Qu'une personne cherchant « pressing Pau », « pressing Lons », « pressing Jurançon », « nettoyage couette Pau », « nettoyage robe Pau » ou « repassage Pau » (pas de mention du costume : absent de la grille, décision du 30/09) trouve le bon magasin et l'appelle.
 
 ## Checklist par page magasin
 
@@ -20,9 +20,9 @@ Qu'une personne cherchant « pressing Pau », « pressing Lons », « pressing J
 - [ ] Téléphone cliquable `tel:` et bouton itinéraire.
 - [ ] Horaires en HTML visible (pas seulement en JSON-LD).
 - [ ] JSON-LD `DryCleaningOrLaundry` : `@id` stable, `name`, `address` (`PostalAddress`), `telephone`, `geo`, `openingHoursSpecification`, `url`, `hasMap`, `image`, `parentOrganization` vers le réseau. Aucune note ni avis.
-- [ ] Contenu propre au magasin (accès, stationnement, services disponibles) : pas de texte dupliqué entre les cinq pages.
+- [ ] Contenu propre au magasin (repère, accès, stationnement) : pas de texte dupliqué entre les cinq pages. Les services sont les mêmes partout.
 - [ ] Vraies photos, `alt` descriptif, formats optimisés par Astro.
-- [ ] Liens vers les magasins proches et vers `/services/`.
+- [ ] Liens vers les magasins proches et vers `/services/` (pastilles de services).
 - [ ] URL canonique, présente dans le sitemap.
 
 ## Checklist site

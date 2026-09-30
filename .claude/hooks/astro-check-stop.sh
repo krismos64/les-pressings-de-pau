@@ -6,6 +6,11 @@ INPUT=$(cat)
 DIR="${CLAUDE_PROJECT_DIR:-$(pwd)}"
 cd "$DIR" || exit 0
 
+# Node du projet (.nvmrc) si nvm est disponible : Astro 7 ne supporte pas Node 23.
+if [ -s "$HOME/.nvm/nvm.sh" ] && [ -f .nvmrc ]; then
+  . "$HOME/.nvm/nvm.sh" >/dev/null 2>&1 && nvm use >/dev/null 2>&1
+fi
+
 # Projet Astro pas encore initialisé : rien à faire.
 [ -f package.json ] && [ -d node_modules/astro ] || exit 0
 

@@ -24,8 +24,10 @@
   body {
     @apply bg-white font-sans text-[15px] leading-relaxed text-texte antialiased;
   }
+  /* Liens soulignés par défaut (accessibilité : ne pas reposer sur la couleur seule).
+     Les boutons et liens de navigation portent la classe no-underline. */
   a {
-    @apply text-bleu-fonce;
+    @apply text-bleu-fonce underline underline-offset-2;
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-bleu-fonce;

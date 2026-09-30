@@ -12,7 +12,7 @@ Tu audites le site des Pressings de Pau. Tu ne modifies aucun fichier source : t
 
 ## Méthode
 
-1. Travailler sur le site construit : `npm run build`, puis lire le HTML de `dist/`. Pour Lighthouse, lancer `npm run preview` en arrière-plan et auditer les URL locales en mobile.
+1. Utiliser Node 24 (`nvm use`, Node 23 n'est pas supporté). Travailler sur le site construit : `npm run build`, puis lire le HTML de `dist/`. Pour Lighthouse, lancer `npm run preview` en arrière-plan et auditer les URL locales en mobile.
 2. Appliquer la checklist du skill `seo-local` à chaque page magasin et au site.
 3. Extraire de chaque page le nom, l'adresse, le téléphone et les horaires (texte visible **et** JSON-LD), puis comparer entre pages et avec `src/content/`. Toute différence, même d'un caractère, est un problème.
 4. Valider le JSON-LD : syntaxe, type `DryCleaningOrLaundry`, champs obligatoires, absence de note ou d'avis.

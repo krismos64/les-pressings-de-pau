@@ -1,6 +1,6 @@
 ---
 name: maj-magasin
-description: Modifier les informations d'un des cinq pressings (horaires, fermeture exceptionnelle, téléphone, services, photos) en gardant le site, la fiche Google et les annuaires cohérents. Utiliser dès qu'une donnée d'un magasin change.
+description: Modifier les informations d'un des cinq pressings (horaires, fermeture exceptionnelle, téléphone, adresse, société, photos) en gardant le site, la fiche Google et les annuaires cohérents. Utiliser dès qu'une donnée d'un magasin change.
 argument-hint: "<magasin> <changement>"
 ---
 
@@ -15,16 +15,19 @@ Une information incohérente entre le site et la fiche Google fait reculer le ma
 
 ## 2. Modifier la donnée (un seul endroit)
 
-- Fichier du magasin dans `src/content/` (collection des magasins). Aucune donnée métier dans un composant.
-- Horaires : format du schéma Zod, fuseau `Europe/Paris`, pauses déjeuner comprises.
+- Fichier `src/content/magasins/<magasin>.json`. Aucune donnée métier dans un composant.
+- Horaires : `{ "statut": "confirme", "verifieLe": "AAAA-MM-JJ", "semaine": { "lundi": [{ "ouverture": "09:00", "fermeture": "12:30" }], ..., "samedi": [] } }`. Tableau vide = fermé. Heures locales de Paris, pauses déjeuner comprises. Exemple complet dans le README.
+- « Du lundi au vendredi » sans précision : le samedi et le dimanche sont fermés, mais le dire à Christophe pour qu'il confirme.
+- Téléphone au format E.164 (`+33559...`) : l'affichage est calculé.
 - Fermeture exceptionnelle : toujours une date de début **et** une date de fin (elle disparaît seule après).
 - Mettre à jour la **date de dernière vérification** du magasin.
 
 ## 3. Vérifier le site
 
-- `npm run check` puis `npm run build`.
+- `npm run check`, `npm test` puis `npm run build`.
 - Contrôler que la page du magasin, sa carte sur l'accueil et sur `/pressings/`, et le JSON-LD affichent la même valeur.
-- Badge « ouvert maintenant » : tester un horaire proche de l'ouverture ou de la fermeture.
+- Badge « ouvert maintenant » : tester les heures limites avec `etatOuverture()` sur les vraies données (ouverture incluse, fermeture exclue, pause, week-end).
+- `npm run verif-publication` : le point « horaires à confirmer » du magasin doit disparaître.
 
 ## 4. Synchroniser hors du site (à faire par Christophe ou le client)
 

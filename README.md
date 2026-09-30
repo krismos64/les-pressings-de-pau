@@ -12,6 +12,10 @@ Le site n'est pas encore en ligne. Nom de domaine prévu : `lespressingsdepau.fr
 - Être bien référencé sur les recherches locales (« pressing Pau », « pressing Lons », « pressing Jurançon ») et compréhensible par les assistants IA.
 - Rester **cohérent avec les fiches Google** de chaque magasin (nom, adresse, téléphone, horaires).
 
+## Pages
+
+Accueil, `/pressings/` et une page par magasin, `/services/`, `/tarifs/`, `/professionnels/`, `/mentions-legales/`, `/confidentialite/`.
+
 ## Stack
 
 | Élément     | Choix                                                         |
@@ -94,7 +98,7 @@ Toutes les informations métier vivent dans `src/content/`. Aucune n'est écrite
 }
 ```
 
-**Fermeture exceptionnelle** : ajouter `{ "du": "2026-12-24", "au": "2026-12-26" }` dans `fermetures` (fin incluse). L'annonce disparaît d'elle-même une fois la date passée.
+**Fermeture exceptionnelle** : ajouter `{ "du": "2026-12-24", "au": "2026-12-26" }` dans `fermetures` (fin incluse). Une fois la date passée, l'annonce est masquée dans le navigateur, puis retirée du HTML au build suivant (un rebuild quotidien est prévu avec le déploiement).
 
 **Tarifs** : `src/content/tarifs.json`, montants en centimes TTC. Le champ `selection` choisit les lignes affichées sur la page Tarifs ; les prix « à partir de » de la page Services sont calculés automatiquement.
 

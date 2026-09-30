@@ -50,6 +50,8 @@ codex exec -C "$CLAUDE_PROJECT_DIR" -s workspace-write --ephemeral \
 - Si le fichier n'apparaît pas dans le projet, le récupérer dans `~/.codex/generated_images/` (le plus récent).
 - Image de référence possible avec `-i <fichier>`.
 - **Jamais d'image générée présentée comme une vraie photo d'un magasin** : le site exige de vraies photos (cahier des charges §6). Les images générées servent aux maquettes, illustrations neutres ou visuels de réseaux sociaux.
+- Destination : `src/assets/provisoire/facade-provisoire.jpg` ou `interieur-provisoire.jpg` (images de repli des magasins, badge automatique) ou `src/assets/illustrations/` (visuel neutre). Demander des images sans texte, logo ni enseigne lisible.
+- Convertir ensuite en JPEG qualité 85 (`sips -s format jpeg -s formatOptions 85`) : les PNG générés pèsent environ 2 Mo.
 - Montrer l'image à Christophe (Read du fichier) avant tout usage.
 
 ## Restitution à Christophe

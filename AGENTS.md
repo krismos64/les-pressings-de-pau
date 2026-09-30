@@ -34,7 +34,8 @@ Pages : accueil, `/pressings/` + une page par magasin, `/services/`, `/professio
 ## Stack
 
 - **Astro** (sortie statique) + **TypeScript strict** + **Tailwind CSS**.
-- Hébergement **Cloudflare Workers Static Assets**. Build et déploiement par **GitHub Actions** (`wrangler deploy`) à chaque push sur `main`.
+- **CI GitHub Actions** à chaque push : check, lint, format, tests, build.
+- Hébergement prévu : **Cloudflare Workers Static Assets**, déploiement par GitHub Actions (`wrangler deploy`) et rebuild quotidien (fermetures passées). À mettre en place avec le domaine.
 - Domaine et e-mail chez **OVH**, DNS délégués à Cloudflare au moment de la mise en ligne.
 - Plus tard, peut-être : **Sveltia CMS** pour que le client édite horaires, fermetures et textes.
 
@@ -42,13 +43,24 @@ Node 24 via nvm (`.nvmrc`, `nvm use`). Commandes : `npm run dev`, `npm run build
 
 ## Règles d'architecture
 
-- **Toute donnée modifiable vit dans des content collections** (`src/content/`), validées par un schéma Zod : magasins, horaires hebdomadaires, fermetures exceptionnelles datées, services par magasin, société exploitante, date de dernière vérification. Jamais de donnée métier en dur dans un composant.
+- **Toute donnée modifiable vit dans des content collections** (`src/content/`), validées par Zod. Jamais de donnée métier en dur dans un composant.
+  - `magasins` : coordonnées, horaires à deux états (`a-confirmer` / `confirme` + date de vérification), fermetures datées, société, photos.
+  - `tarifs` : grille commune, centimes TTC, `selection` = lignes affichées sur /tarifs/.
+  - `services` : prestations reliées aux lignes de tarif (« à partir de » calculé).
+  - `professionnels`, `societes`, `legal`, `reseau`, `faq` (vide pour l'instant).
 - Une seule source par information : pages, cartes, JSON-LD, sitemap et badge d'ouverture lisent les mêmes fichiers.
 - Le badge « ouvert maintenant » est calculé **dans le navigateur** (fuseau `Europe/Paris`, pauses, fermetures exceptionnelles, changement d'heure). Sinon, afficher seulement les horaires.
 - Les fermetures exceptionnelles ont une date de fin et disparaissent seules.
 - Zéro JavaScript côté client par défaut. Îlot interactif seulement si justifié.
 - Pas d'API Google Places pour les horaires (CGU de Google).
-- Carte Google chargée au clic uniquement (cookies tiers, RGPD).
+- Pas de carte intégrée : les boutons « Itinéraire » ouvrent Google Maps. Si une carte est ajoutée un jour : chargement au clic uniquement (cookies tiers, RGPD).
+
+## Design et images
+
+- Très proche de pressing-biarritz.fr : Contrail One (titres) et Open Sans auto-hébergées, aplats bleu `#137CC1` ; `#0F6AA6` (`bleu-fonce`) pour boutons, bandeaux avec petit texte et liens (contraste AA). Liens soulignés par défaut, `no-underline` sur les boutons.
+- Logo : texte provisoire.
+- Images générées (Codex) : `src/assets/provisoire/` pour les magasins, avec badge « Image provisoire », bloquées par `verif-publication` ; `src/assets/illustrations/` pour des visuels neutres. Jamais présentées comme une vraie photo de magasin. Pas d'image provisoire dans les cartes magasins.
+- Piège Prettier : il coupe les lignes, et un retour à la ligne entre deux éléments devient une espace (« 05 59 … 94 . »). Toute phrase avec ponctuation après un élément s'assemble en chaîne dans le code.
 
 ## SEO local et GEO (priorité du projet)
 
@@ -67,11 +79,11 @@ Node 24 via nvm (`.nvmrc`, `nvm use`). Commandes : `npm run dev`, `npm run build
 - Ancienneté : ne rien affirmer sans validation explicite du client.
 - **Jamais de tiret cadratin ni demi-cadratin** (U+2014, U+2013), ni dans l'UI, ni dans les commentaires, ni dans les commits. Utiliser deux-points, virgule, parenthèses ou point.
 - Phrases simples, voix active, pas de jargon publicitaire.
-- Prix : TTC, avec unité (pièce, m², kilo) et « à partir de » ou « sur devis » si le prix varie.
+- Prix : TTC, à l'unité ou au m² ; « à partir de » quand plusieurs prix existent.
 
 ## Légal (France)
 
-Mentions légales par société exploitante, médiateur de la consommation, politique de confidentialité (hébergeur Cloudflare, États-Unis, Data Privacy Framework), consentement avant tout traceur, droits sur les photos, accord écrit pour citer un client.
+Pages `/mentions-legales/` et `/confidentialite/` générées depuis `src/content/legal/` et `src/content/societes/`. Obligatoire avant la mise en ligne : éditeur, directeur de la publication, e-mail, société de chaque magasin, médiateur de la consommation (listés par `npm run verif-publication`). Le site ne dépose aucun cookie : tout ajout de traceur exige un consentement préalable. Accord écrit pour citer un client.
 
 ## Journal de session
 
@@ -83,4 +95,5 @@ Mentions légales par société exploitante, médiateur de la consommation, poli
 - Messages en **Conventional Commits, en français** : `feat: ajoute la page MJ Pressing`, `fix: corrige les horaires de Sophia`.
 - Aucune mention de Claude ou de Codex dans les commits (pas de `Co-Authored-By`).
 - Secrets (token API Cloudflare, etc.) uniquement dans les secrets GitHub ou `.env` (gitignoré). Jamais dans le code.
-- Tests : pas de suite de tests lourde. Vérification = `npm run check` + `npm run build` + contrôle visuel et Lighthouse mobile.
+- Tests : pas de suite lourde. Vérification = `npm run check`, `lint`, `format:check`, `npm test`, `build` (tous en CI) + contrôle visuel et Lighthouse mobile (100 visé en accessibilité, bonnes pratiques, SEO). Avant la mise en ligne : `npm run verif-publication`.
+- Avant chaque commit : aucune information client interne dans les fichiers versionnés (dépôt public).
