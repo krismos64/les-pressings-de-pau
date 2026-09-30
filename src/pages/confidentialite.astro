@@ -1,0 +1,85 @@
+---
+import { getEntry } from "astro:content";
+
+import TitreSection from "../components/TitreSection.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const legal = await getEntry("legal", "legal");
+if (!legal) throw new Error("src/content/legal/legal.json manquant");
+const editeur = legal.data.editeur
+  ? await getEntry(legal.data.editeur)
+  : undefined;
+const dateMaj = new Intl.DateTimeFormat("fr-FR", {
+  dateStyle: "long",
+  timeZone: "UTC",
+}).format(new Date(`${legal.data.miseAJour}T00:00:00Z`));
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description="Données personnelles et cookies sur le site des Pressings de Pau : aucun formulaire, aucun cookie, aucune mesure d'audience."
+>
+  <div class="bg-bleu-fonce py-10 text-center text-white">
+    <h1 class="font-display text-4xl">Confidentialité</h1>
+  </div>
+
+  <div class="mx-auto max-w-3xl space-y-10 px-4 py-12">
+    <section>
+      <TitreSection>En résumé</TitreSection>
+      <ul class="mt-4 list-disc space-y-1 pl-5">
+        <li>Ce site ne comporte ni formulaire, ni compte client.</li>
+        <li>Il ne dépose aucun cookie et ne mesure pas l'audience.</li>
+        <li>Les polices de caractères sont hébergées sur le site lui-même.</li>
+      </ul>
+    </section>
+
+    <section>
+      <TitreSection>Responsable du traitement</TitreSection>
+      <p class="mt-4">{editeur ? editeur.data.raisonSociale : "À confirmer"}</p>
+      <p class="mt-2">
+        Pour toute question sur vos données :{" "}
+        {legal.data.email ? (
+          <a href={`mailto:${legal.data.email}`}>{legal.data.email}</a>
+        ) : (
+          "adresse de contact à confirmer"
+        )}
+      </p>
+    </section>
+
+    <section>
+      <TitreSection>Hébergement et données techniques</TitreSection>
+      <p class="mt-4">
+        Le site est hébergé par {legal.data.hebergeur.nom} (États-Unis). Pour
+        afficher les pages et protéger le site, l'hébergeur traite des données
+        techniques de connexion, comme l'adresse IP et le type de navigateur.
+        Cloudflare indique encadrer les transferts de données vers les
+        États-Unis par sa certification au Data Privacy Framework UE-États-Unis.
+      </p>
+    </section>
+
+    <section>
+      <TitreSection>Liens vers des services tiers</TitreSection>
+      <p class="mt-4">
+        Les boutons « Itinéraire » ouvrent Google Maps dans un nouvel onglet :
+        Google applique alors sa propre politique de confidentialité. Les
+        boutons « Appeler » ouvrent l'application de téléphone de votre
+        appareil, sans transmettre de donnée à ce site.
+      </p>
+    </section>
+
+    <section>
+      <TitreSection>Vos droits</TitreSection>
+      <p class="mt-4">
+        Conformément au Règlement général sur la protection des données (RGPD),
+        vous disposez d'un droit d'accès, de rectification, d'effacement, de
+        limitation et d'opposition sur vos données. Vous pouvez aussi adresser
+        une réclamation à la CNIL :{" "}
+        <a href="https://www.cnil.fr" rel="noopener">
+          www.cnil.fr
+        </a>
+      </p>
+    </section>
+
+    <p class="text-sm">Dernière mise à jour : {dateMaj}.</p>
+  </div>
+</BaseLayout>

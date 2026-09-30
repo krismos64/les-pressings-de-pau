@@ -26,6 +26,23 @@ const compter = (dossier: string): number =>
 if (compter("src/content/societes") === 0)
   points.push("Aucune société (mentions légales)");
 
+// Mentions légales et confidentialité.
+const legal = JSON.parse(
+  readFileSync(join(racine, "src/content/legal/legal.json"), "utf8"),
+);
+if (!legal.editeur) points.push("Mentions légales : société éditrice du site");
+if (!legal.directeurPublication)
+  points.push("Mentions légales : directeur de la publication");
+if (!legal.email) points.push("Mentions légales : adresse e-mail de contact");
+const dossierSocietes = join(racine, "src/content/societes");
+for (const f of readdirSync(dossierSocietes).filter((x) =>
+  x.endsWith(".json"),
+)) {
+  const soc = JSON.parse(readFileSync(join(dossierSocietes, f), "utf8"));
+  if (!soc.mediateur)
+    points.push(`${soc.raisonSociale} : médiateur de la consommation`);
+}
+
 // Images générées (Codex) : à remplacer par de vraies photos avant la mise en ligne.
 const provisoires = readdirSync(join(racine, "src/assets/provisoire"), {
   withFileTypes: true,

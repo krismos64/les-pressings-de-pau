@@ -110,6 +110,8 @@ const societes = defineCollection({
       .regex(/^\d{9}$/)
       .optional(),
     rcs: z.string().optional(),
+    tva: z.string().optional(),
+    capital: z.string().optional(),
     siege: z.string().optional(),
     mediateur: z.object({ nom: z.string(), url: z.url() }).optional(),
   }),
@@ -136,6 +138,23 @@ const reseau = defineCollection({
   }),
 });
 
+// Mentions légales du site. Les champs absents sont signalés par verif-publication.
+const legal = defineCollection({
+  loader: glob({ base: "./src/content/legal", pattern: "*.json" }),
+  schema: z.object({
+    editeur: reference("societes").optional(),
+    directeurPublication: z.string().optional(),
+    email: z.email().optional(),
+    hebergeur: z.object({
+      nom: z.string(),
+      adresse: z.string(),
+      telephone: z.string(),
+      site: z.url(),
+    }),
+    miseAJour: dateLocale,
+  }),
+});
+
 // Offre aux professionnels (faits confirmés par Christophe le 30/09/2026).
 const professionnels = defineCollection({
   loader: glob({ base: "./src/content/professionnels", pattern: "*.json" }),
@@ -157,4 +176,5 @@ export const collections = {
   faq,
   reseau,
   professionnels,
+  legal,
 };

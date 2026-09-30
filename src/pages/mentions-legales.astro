@@ -1,0 +1,152 @@
+---
+import { getEntry } from "astro:content";
+
+import TitreSection from "../components/TitreSection.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { adresseTexte, magasinsTries } from "../lib/magasins.ts";
+
+const legal = await getEntry("legal", "legal");
+if (!legal) throw new Error("src/content/legal/legal.json manquant");
+const { hebergeur } = legal.data;
+const editeur = legal.data.editeur
+  ? await getEntry(legal.data.editeur)
+  : undefined;
+const magasins = await magasinsTries();
+const exploitants = await Promise.all(
+  magasins.map(async (m) => ({
+    m,
+    societe: m.data.societe ? await getEntry(m.data.societe) : undefined,
+  })),
+);
+const societes = [
+  ...new Map(
+    exploitants.flatMap(({ societe }) =>
+      societe ? [[societe.id, societe]] : [],
+    ),
+  ).values(),
+];
+const aConfirmer = "À confirmer";
+
+type Societe = NonNullable<typeof editeur>;
+/** Description complète d'une société, en une seule chaîne. */
+const decrire = (soc: Societe): string =>
+  [
+    soc.data.raisonSociale,
+    soc.data.formeJuridique &&
+      `${soc.data.formeJuridique}${soc.data.capital ? ` au capital de ${soc.data.capital}` : ""}`,
+    soc.data.siege && `siège : ${soc.data.siege}`,
+    soc.data.rcs,
+    soc.data.tva && `TVA intracommunautaire ${soc.data.tva}`,
+  ]
+    .filter(Boolean)
+    .join(", ") + ".";
+const dateMaj = new Intl.DateTimeFormat("fr-FR", {
+  dateStyle: "long",
+  timeZone: "UTC",
+}).format(new Date(`${legal.data.miseAJour}T00:00:00Z`));
+---
+
+<BaseLayout
+  title="Mentions légales"
+  description="Mentions légales du site des Pressings de Pau : éditeur, hébergeur, sociétés exploitantes des magasins et médiation de la consommation."
+>
+  <div class="bg-bleu-fonce py-10 text-center text-white">
+    <h1 class="font-display text-4xl">Mentions légales</h1>
+  </div>
+
+  <div class="mx-auto max-w-3xl space-y-10 px-4 py-12">
+    <section>
+      <TitreSection>Éditeur du site</TitreSection>
+      <p class="mt-4">{editeur ? decrire(editeur) : aConfirmer}</p>
+      <p class="mt-3">
+        Directeur de la publication :{" "}
+        {legal.data.directeurPublication ?? aConfirmer}
+        <br />
+        Contact :{" "}
+        {legal.data.email ? (
+          <a href={`mailto:${legal.data.email}`}>{legal.data.email}</a>
+        ) : (
+          aConfirmer
+        )}
+      </p>
+    </section>
+
+    <section>
+      <TitreSection>Hébergeur</TitreSection>
+      <p class="mt-4">
+        {hebergeur.nom}
+        <br />
+        {hebergeur.adresse}
+        <br />
+        Téléphone : {hebergeur.telephone}
+        <br />
+        <a href={hebergeur.site} rel="noopener">
+          {hebergeur.site.replace("https://", "")}
+        </a>
+      </p>
+    </section>
+
+    <section>
+      <TitreSection>Sociétés exploitantes</TitreSection>
+      <p class="mt-4">
+        Chaque magasin est exploité par la société indiquée ci-dessous.
+      </p>
+      <ul class="mt-4 space-y-3">
+        {exploitants.map(({ m, societe }) => (
+          <li>
+            <strong class="block text-titre">{m.data.enseigne}</strong>
+            <span class="block">{adresseTexte(m)}</span>
+            <span class="block">
+              {societe
+                ? `Exploité par ${societe.data.raisonSociale}`
+                : `Société exploitante : ${aConfirmer.toLowerCase()}`}
+            </span>
+          </li>
+        ))}
+      </ul>
+      {societes.map((soc) => (
+        <p class="mt-4 text-sm">{decrire(soc)}</p>
+      ))}
+    </section>
+
+    <section>
+      <TitreSection>Médiation de la consommation</TitreSection>
+      <p class="mt-4">
+        Conformément aux articles L.612-1 et suivants du Code de la
+        consommation, tout consommateur peut recourir gratuitement à un
+        médiateur de la consommation en vue de la résolution amiable d'un
+        litige.
+      </p>
+      <ul class="mt-4 space-y-2">
+        {societes.map((s) => (
+          <li>
+            {s.data.raisonSociale} :{" "}
+            {s.data.mediateur ? (
+              <a href={s.data.mediateur.url} rel="noopener">
+                {s.data.mediateur.nom}
+              </a>
+            ) : (
+              aConfirmer.toLowerCase()
+            )}
+          </li>
+        ))}
+        {exploitants.some((e) => !e.societe) && (
+          <li>Autres sociétés : {aConfirmer.toLowerCase()}</li>
+        )}
+      </ul>
+    </section>
+
+    <section>
+      <TitreSection>Propriété intellectuelle et crédits</TitreSection>
+      <p class="mt-4">
+        Les textes et la mise en page de ce site ne peuvent pas être reproduits
+        sans autorisation. Les images marquées « Image provisoire » et les
+        illustrations des pages Services et Professionnels ont été générées par
+        intelligence artificielle ; elles ne représentent pas nos magasins.
+        Polices Open Sans et Contrail One sous licence SIL Open Font License.
+      </p>
+    </section>
+
+    <p class="text-sm">Dernière mise à jour : {dateMaj}.</p>
+  </div>
+</BaseLayout>
