@@ -6,6 +6,7 @@ import {
   erreursJour,
   etatOuverture,
   fermeturesActives,
+  heureAffichage,
   instantParis,
   telephoneAffichage,
   type Semaine,
@@ -124,4 +125,10 @@ describe("validations", () => {
 
 it("formate un numéro E.164", () => {
   assert.equal(telephoneAffichage("+33559309275"), "05 59 30 92 75");
+});
+
+it("formate une heure à la française", () => {
+  assert.equal(heureAffichage("09:00"), "9h");
+  assert.equal(heureAffichage("12:30"), "12h30");
+  assert.equal(heureAffichage("18:00"), "18h");
 });

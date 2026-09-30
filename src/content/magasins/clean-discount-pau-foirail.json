@@ -9,7 +9,62 @@
   },
   "telephone": "+33559309275",
   "horaires": {
-    "statut": "a-confirmer"
+    "statut": "confirme",
+    "verifieLe": "2026-09-30",
+    "semaine": {
+      "lundi": [
+        {
+          "ouverture": "09:00",
+          "fermeture": "12:30"
+        },
+        {
+          "ouverture": "14:30",
+          "fermeture": "18:00"
+        }
+      ],
+      "mardi": [
+        {
+          "ouverture": "09:00",
+          "fermeture": "12:30"
+        },
+        {
+          "ouverture": "14:30",
+          "fermeture": "18:00"
+        }
+      ],
+      "mercredi": [
+        {
+          "ouverture": "09:00",
+          "fermeture": "12:30"
+        },
+        {
+          "ouverture": "14:30",
+          "fermeture": "18:00"
+        }
+      ],
+      "jeudi": [
+        {
+          "ouverture": "09:00",
+          "fermeture": "12:30"
+        },
+        {
+          "ouverture": "14:30",
+          "fermeture": "18:00"
+        }
+      ],
+      "vendredi": [
+        {
+          "ouverture": "09:00",
+          "fermeture": "12:30"
+        },
+        {
+          "ouverture": "14:30",
+          "fermeture": "18:00"
+        }
+      ],
+      "samedi": [],
+      "dimanche": []
+    }
   },
   "fermetures": []
 }

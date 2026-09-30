@@ -7,7 +7,11 @@ import Fermetures from "../../components/Fermetures.astro";
 import TitreSection from "../../components/TitreSection.astro";
 import Visuel from "../../components/Visuel.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { JOURS, telephoneAffichage } from "../../lib/horaires.ts";
+import {
+  JOURS,
+  heureAffichage as heure,
+  telephoneAffichage,
+} from "../../lib/horaires.ts";
 import { photoMagasin } from "../../lib/images.ts";
 import {
   adresseTexte,
@@ -45,8 +49,6 @@ const autres = magasins
       Number(a.data.adresse.ville === d.adresse.ville),
   )
   .slice(0, 3);
-
-const heure = (h: string): string => h.replace(":", "h");
 ---
 
 <BaseLayout

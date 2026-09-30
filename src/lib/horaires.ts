@@ -146,6 +146,12 @@ export function etatOuverture(
     : { ouvert: false, raison: "horaires" };
 }
 
+/** "09:00" devient "9h", "12:30" devient "12h30". */
+export function heureAffichage(heure: string): string {
+  const [h = "0", m = "00"] = heure.split(":");
+  return `${Number(h)}h${m === "00" ? "" : m}`;
+}
+
 /** "+33559309275" devient "05 59 30 92 75". */
 export function telephoneAffichage(e164: string): string {
   const national = `0${e164.replace(/^\+33/, "")}`;

@@ -23,6 +23,7 @@ const { horaires, fermetures } = Astro.props.magasin.data;
 <script>
   import {
     etatOuverture,
+    heureAffichage,
     type Fermeture,
     type Semaine,
   } from "../lib/horaires.ts";
@@ -36,7 +37,7 @@ const { horaires, fermetures } = Astro.props.magasin.data;
     ) as Fermeture[];
     const etat = etatOuverture(semaine, fermetures, new Date());
     if (etat.ouvert) {
-      el.textContent = `Ouvert, ferme à ${etat.fermeA.replace(":", "h")}`;
+      el.textContent = `Ouvert, ferme à ${heureAffichage(etat.fermeA)}`;
       el.classList.add("text-green-700");
     } else {
       el.textContent =
