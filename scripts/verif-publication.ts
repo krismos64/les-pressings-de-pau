@@ -28,6 +28,16 @@ if (compter("src/content/services") === 0) points.push("Aucun service défini");
 if (compter("src/content/societes") === 0)
   points.push("Aucune société (mentions légales)");
 
+// Images générées (Codex) : à remplacer par de vraies photos avant la mise en ligne.
+const provisoires = readdirSync(join(racine, "src/assets/provisoire"), {
+  withFileTypes: true,
+}).filter((e) => e.isFile() && !e.name.startsWith("."));
+if (provisoires.length > 0) {
+  points.push(
+    `${provisoires.length} image(s) provisoire(s) dans src/assets/provisoire/ : remplacer par de vraies photos`,
+  );
+}
+
 // Marqueurs « À CONFIRMER » laissés dans le code ou les contenus.
 const parcourir = (dossier: string): string[] =>
   readdirSync(dossier, { withFileTypes: true }).flatMap((e) =>

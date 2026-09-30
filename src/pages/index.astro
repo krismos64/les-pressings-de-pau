@@ -1,39 +1,79 @@
 ---
-// Page provisoire : valide la chaîne données > pages. Le design viendra ensuite.
-import { getCollection, getEntry } from "astro:content";
+import { getEntry } from "astro:content";
 
+import CarteMagasin from "../components/CarteMagasin.astro";
+import Fermetures from "../components/Fermetures.astro";
+import TitreSection from "../components/TitreSection.astro";
+import Visuel from "../components/Visuel.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { telephoneAffichage } from "../lib/horaires.ts";
+import { visuelProvisoire } from "../lib/images.ts";
+import { magasinsTries, urlMagasin } from "../lib/magasins.ts";
 
 const reseau = await getEntry("reseau", "reseau");
 if (!reseau) throw new Error("src/content/reseau/reseau.json manquant");
+const magasins = await magasinsTries();
 
-const magasins = (await getCollection("magasins")).sort(
-  (a, b) => a.data.ordre - b.data.ordre,
-);
+const site = Astro.site ?? new URL("https://lespressingsdepau.fr");
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": new URL("/#reseau", site).href,
+    name: reseau.data.nom,
+    url: site.href,
+    description: reseau.data.description,
+    subOrganization: magasins.map((m) => ({
+      "@id": `${new URL(urlMagasin(m), site).href}#magasin`,
+    })),
+  },
+];
 ---
 
-<BaseLayout title={reseau.data.signature} description={reseau.data.description}>
-  <main class="mx-auto max-w-3xl p-4">
-    <h1 class="text-2xl font-bold">{reseau.data.signature}</h1>
-    <ul class="mt-6 grid gap-4">
-      {magasins.map(({ data }) => (
-        <li class="rounded border p-4">
-          <h2 class="font-semibold">{data.enseigne}</h2>
-          <p>
-            {data.repere && <>{data.repere}, </>}
-            {data.adresse.rue}, {data.adresse.codePostal} {data.adresse.ville}
-          </p>
-          <p>
-            <a href={`tel:${data.telephone}`}>
-              {telephoneAffichage(data.telephone)}
-            </a>
-          </p>
-          {data.horaires.statut === "a-confirmer" && (
-            <p>Horaires : appelez le magasin.</p>
-          )}
-        </li>
+<BaseLayout
+  title={reseau.data.signature}
+  description={reseau.data.description}
+  jsonLd={jsonLd}
+>
+  <!-- Hero en trois colonnes : photo, aplat bleu, photo -->
+  <section class="mx-auto grid max-w-6xl grid-cols-2 gap-3 px-4 py-6 md:grid-cols-3 md:gap-0 md:py-8">
+    <Visuel
+      visuel={visuelProvisoire("facade")}
+      class="order-2 aspect-square md:aspect-[4/5] md:order-1 md:shadow-lg"
+      priorite
+    />
+    <div class="order-1 col-span-2 flex flex-col justify-center bg-bleu md:col-span-1 px-6 py-10 text-white md:order-2">
+      <h1 class="text-center font-display text-4xl leading-tight">
+        {reseau.data.nom}
+      </h1>
+      <div class="mt-6 bg-white p-5 text-texte">
+        <ul class="list-disc space-y-1 pl-5">
+          {reseau.data.pointsCles.map((point) => (
+            <li>{point}</li>
+          ))}
+        </ul>
+      </div>
+      <a
+        href="#magasins"
+        class="mt-6 self-center rounded bg-white px-5 py-3 text-sm font-bold text-bleu-fonce uppercase no-underline"
+      >
+        Trouver mon pressing
+      </a>
+    </div>
+    <Visuel
+      visuel={visuelProvisoire("interieur")}
+      class="order-3 aspect-square md:aspect-[4/5] md:shadow-lg"
+      priorite
+    />
+  </section>
+
+  <Fermetures magasins={magasins} />
+
+  <section class="mx-auto max-w-6xl scroll-mt-24 px-4 py-12" id="magasins">
+    <TitreSection>Nos {magasins.length} pressings</TitreSection>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {magasins.map((m) => (
+        <CarteMagasin magasin={m} />
       ))}
-    </ul>
-  </main>
+    </div>
+  </section>
 </BaseLayout>

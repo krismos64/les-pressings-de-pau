@@ -1,0 +1,192 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import BadgeOuvert from "../../components/BadgeOuvert.astro";
+import CarteMagasin from "../../components/CarteMagasin.astro";
+import Fermetures from "../../components/Fermetures.astro";
+import TitreSection from "../../components/TitreSection.astro";
+import Visuel from "../../components/Visuel.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { JOURS, telephoneAffichage } from "../../lib/horaires.ts";
+import { photoMagasin } from "../../lib/images.ts";
+import {
+  adresseTexte,
+  jsonLdMagasin,
+  magasinsTries,
+  urlItineraire,
+  type Magasin,
+} from "../../lib/magasins.ts";
+
+export const getStaticPaths = (async () => {
+  const magasins = await magasinsTries();
+  return magasins.map((magasin) => ({
+    params: { slug: magasin.id },
+    props: { magasin, magasins },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  magasin: Magasin;
+  magasins: Magasin[];
+}
+
+const { magasin: m, magasins } = Astro.props;
+const d = m.data;
+const site = Astro.site ?? new URL("https://lespressingsdepau.fr");
+const tel = telephoneAffichage(d.telephone);
+const lieu = d.repere ? `${d.adresse.ville}, ${d.repere}` : d.adresse.ville;
+
+// Autres magasins : même ville d'abord.
+const autres = magasins
+  .filter((x) => x.id !== m.id)
+  .sort(
+    (a, b) =>
+      Number(b.data.adresse.ville === d.adresse.ville) -
+      Number(a.data.adresse.ville === d.adresse.ville),
+  )
+  .slice(0, 3);
+
+const heure = (h: string): string => h.replace(":", "h");
+---
+
+<BaseLayout
+  title={`${d.enseigne}, pressing à ${lieu}`}
+  description={`${d.enseigne}, pressing à ${d.adresse.ville} : ${adresseTexte(m)}. Téléphone ${tel}. Itinéraire et informations pratiques.`}
+  jsonLd={[jsonLdMagasin(m, site)]}
+>
+  <nav aria-label="Fil d'Ariane" class="mx-auto max-w-6xl px-4 pt-4 text-sm">
+    <a href="/">Accueil</a> › <a href="/pressings/">Nos pressings</a> ›
+    <span aria-current="page">{d.enseigne}</span>
+  </nav>
+
+  <section class="mx-auto grid max-w-6xl grid-cols-2 gap-3 px-4 py-6 md:grid-cols-3 md:gap-0">
+    <Visuel
+      visuel={photoMagasin(m, 0, "facade")}
+      class="order-2 aspect-square md:aspect-[4/5] md:order-1"
+      priorite
+    />
+    <div class="order-1 col-span-2 flex flex-col justify-center bg-bleu md:col-span-1 px-6 py-10 text-white md:order-2">
+      <h1 class="text-center font-display text-4xl leading-tight">
+        {d.enseigne}
+        <span class="mt-2 block text-2xl">pressing à {d.adresse.ville}</span>
+      </h1>
+      <div class="mt-6 space-y-2 bg-white p-5 text-texte">
+        {d.repere && (
+          <p class="font-semibold text-titre uppercase">{d.repere}</p>
+        )}
+        <p>{adresseTexte(m)}</p>
+        <p>
+          Téléphone :{" "}
+          <a href={`tel:${d.telephone}`} class="font-bold">
+            {tel}
+          </a>
+        </p>
+        <BadgeOuvert magasin={m} />
+      </div>
+      <div class="mt-6 grid grid-cols-2 gap-3 text-center text-sm font-bold uppercase">
+        <a
+          href={`tel:${d.telephone}`}
+          class="rounded bg-white px-3 py-3 text-bleu-fonce no-underline"
+        >
+          Appeler
+        </a>
+        <a
+          href={urlItineraire(m)}
+          target="_blank"
+          rel="noopener"
+          class="rounded border border-white bg-bleu-fonce px-3 py-3 text-white no-underline"
+        >
+          Itinéraire
+        </a>
+      </div>
+    </div>
+    <Visuel
+      visuel={photoMagasin(m, 1, "interieur")}
+      class="order-3 aspect-square md:aspect-[4/5]"
+    />
+  </section>
+
+  <Fermetures magasins={[m]} />
+
+  <section class="mx-auto max-w-3xl scroll-mt-24 px-4 py-10" id="horaires">
+    <TitreSection>Horaires</TitreSection>
+    {d.horaires.statut === "confirme" ? (
+      <table class="mx-auto mt-6 w-full max-w-md">
+        <caption class="sr-only">Horaires d'ouverture de {d.enseigne}</caption>
+        <tbody>
+          {JOURS.map((jour) => {
+            const plages =
+              d.horaires.statut === "confirme" ? d.horaires.semaine[jour] : [];
+            return (
+              <tr class="border-b border-filet">
+                <th
+                  scope="row"
+                  class="py-2 text-left font-semibold text-titre capitalize"
+                >
+                  {jour}
+                </th>
+                <td class="py-2 text-right tabular-nums">
+                  {plages.length === 0
+                    ? "Fermé"
+                    : plages
+                        .map(
+                          (p) =>
+                            `${heure(p.ouverture)} à ${heure(p.fermeture)}`,
+                        )
+                        .join(", ")}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    ) : (
+      <p class="mt-6 text-center">
+        Pour connaître les horaires, appelez le magasin :{" "}
+        <a href={`tel:${d.telephone}`} class="font-bold">
+          {tel}
+        </a>
+      </p>
+    )}
+  </section>
+
+  {d.acces && (
+    <section class="mx-auto max-w-3xl px-4 pb-10">
+      <TitreSection>Accès et stationnement</TitreSection>
+      <p class="mt-6">{d.acces}</p>
+    </section>
+  )}
+
+  <section class="bg-fond-doux py-12">
+    <div class="mx-auto max-w-6xl px-4">
+      <TitreSection>Nos autres pressings</TitreSection>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {autres.map((x) => (
+          <CarteMagasin magasin={x} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Barre d'actions fixe sur mobile -->
+  <div class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-filet bg-white text-center text-xs font-bold uppercase shadow-[0_-2px_8px_rgba(0,0,0,0.08)] md:hidden">
+    <a
+      href={`tel:${d.telephone}`}
+      class="bg-bleu-fonce py-4 text-white no-underline"
+    >
+      Appeler
+    </a>
+    <a
+      href={urlItineraire(m)}
+      target="_blank"
+      rel="noopener"
+      class="py-4 no-underline"
+    >
+      Itinéraire
+    </a>
+    <a href="#horaires" class="py-4 no-underline">
+      Horaires
+    </a>
+  </div>
+  <div class="h-14 md:hidden" aria-hidden="true"></div>
+</BaseLayout>

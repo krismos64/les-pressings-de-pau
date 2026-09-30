@@ -1,0 +1,46 @@
+---
+// Logo texte provisoire (en attendant un vrai logo) + menu, onglet actif en bleu plein.
+const liens = [
+  { href: "/", libelle: "Accueil" },
+  { href: "/pressings/", libelle: "Nos pressings" },
+];
+
+const chemin = Astro.url.pathname;
+const actif = (href: string): boolean =>
+  href === "/" ? chemin === "/" : chemin.startsWith(href);
+---
+
+<header class="sticky top-0 z-30 border-b border-filet bg-white/95 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 md:py-4">
+    <a
+      href="/"
+      class="leading-none no-underline"
+      aria-label="Les Pressings de Pau, accueil"
+    >
+      <span class="block font-display text-2xl text-bleu">Les Pressings</span>
+      <span class="block text-sm font-semibold tracking-[0.2em] text-titre uppercase">
+        de Pau
+      </span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul class="flex gap-1">
+        {liens.map(({ href, libelle }) => (
+          <li>
+            <a
+              href={href}
+              aria-current={actif(href) ? "page" : undefined}
+              class:list={[
+                "block rounded px-3 py-2 text-[13px] font-semibold tracking-wide uppercase no-underline",
+                actif(href)
+                  ? "bg-bleu-fonce text-white"
+                  : "text-titre hover:text-bleu-fonce",
+              ]}
+            >
+              {libelle}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

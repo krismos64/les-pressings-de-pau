@@ -1,0 +1,49 @@
+---
+// Fermetures exceptionnelles en cours ou à venir au moment du build.
+// Le navigateur masque ensuite celles qui sont passées (data-au), en attendant le rebuild quotidien.
+import { fermeturesActives, instantParis } from "../lib/horaires.ts";
+import type { Magasin } from "../lib/magasins.ts";
+
+interface Props {
+  magasins: Magasin[];
+}
+
+const aujourdhui = instantParis(new Date()).date;
+const dateFr = (iso: string): string =>
+  new Intl.DateTimeFormat("fr-FR", {
+    dateStyle: "full",
+    timeZone: "UTC",
+  }).format(new Date(`${iso}T00:00:00Z`));
+
+const texte = (f: {
+  du: string;
+  au: string;
+  motif?: string | undefined;
+}): string =>
+  ` : fermé du ${dateFr(f.du)} au ${dateFr(f.au)} inclus${f.motif ? ` (${f.motif})` : ""}.`;
+
+const annonces = Astro.props.magasins.flatMap((m) =>
+  fermeturesActives(m.data.fermetures, aujourdhui).map((f) => ({
+    magasin: m.data.enseigne,
+    ...f,
+  })),
+);
+---
+
+{annonces.length > 0 && (
+  <section class="bg-bleu py-10 text-white" aria-labelledby="titre-fermetures">
+    <div class="mx-auto max-w-4xl px-4">
+      <h2 id="titre-fermetures" class="text-center font-display text-3xl">
+        Fermetures exceptionnelles
+      </h2>
+      <ul class="mt-6 grid gap-3">
+        {annonces.map((a) => (
+          <li data-au={a.au} class="rounded bg-white p-4 text-texte">
+            <strong class="text-titre">{a.magasin}</strong>
+            <span>{texte(a)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

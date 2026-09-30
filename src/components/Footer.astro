@@ -1,0 +1,33 @@
+---
+import { getEntry } from "astro:content";
+
+import { telephoneAffichage } from "../lib/horaires.ts";
+import { adresseTexte, magasinsTries, urlMagasin } from "../lib/magasins.ts";
+
+const reseau = await getEntry("reseau", "reseau");
+const magasins = await magasinsTries();
+---
+
+<footer class="bg-pied text-sm text-neutral-300">
+  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
+    <div>
+      <p class="font-display text-xl text-white">{reseau?.data.nom}</p>
+      <p class="mt-2">{reseau?.data.description}</p>
+    </div>
+    <ul class="grid gap-4 sm:grid-cols-2 md:col-span-2">
+      {magasins.map((m) => (
+        <li>
+          <a href={urlMagasin(m)} class="font-semibold text-white">
+            {m.data.enseigne}
+          </a>
+          <br />
+          {adresseTexte(m)}
+          <br />
+          <a href={`tel:${m.data.telephone}`} class="text-neutral-300">
+            {telephoneAffichage(m.data.telephone)}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</footer>

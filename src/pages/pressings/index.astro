@@ -1,0 +1,54 @@
+---
+import CarteMagasin from "../../components/CarteMagasin.astro";
+import TitreSection from "../../components/TitreSection.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { magasinsTries } from "../../lib/magasins.ts";
+
+const magasins = await magasinsTries();
+
+// Regroupement par ville, dans l'ordre d'apparition.
+const villes = [...new Set(magasins.map((m) => m.data.adresse.ville))];
+const ancre = (ville: string): string =>
+  ville
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase();
+---
+
+<BaseLayout
+  title="Nos pressings à Pau, Lons et Jurançon"
+  description={`Adresses, téléphones et itinéraires des ${magasins.length} pressings du réseau à ${villes.join(", ")}.`}
+>
+  <div class="bg-bleu py-10 text-center text-white">
+    <h1 class="font-display text-4xl">Nos {magasins.length} pressings</h1>
+    <nav aria-label="Villes" class="mt-5 flex flex-wrap justify-center gap-2">
+      {villes.map((v) => (
+        <a
+          href={`#${ancre(v)}`}
+          class="rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-bleu-fonce no-underline"
+        >
+          {v}
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  {villes.map((ville) => {
+    const liste = magasins.filter((m) => m.data.adresse.ville === ville);
+    return (
+      <section
+        id={ancre(ville)}
+        class="mx-auto max-w-6xl scroll-mt-24 px-4 py-10"
+      >
+        <TitreSection>
+          {ville} ({liste.length})
+        </TitreSection>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {liste.map((m) => (
+            <CarteMagasin magasin={m} />
+          ))}
+        </div>
+      </section>
+    );
+  })}
+</BaseLayout>

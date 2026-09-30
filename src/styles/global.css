@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+/* Identité inspirée de la référence validée : blanc, aplats bleus, titres Contrail One.
+   Bleu et gris légèrement assombris pour respecter le contraste WCAG AA sur petit texte. */
+@theme inline {
+  --font-display: var(--font-contrail-one);
+  --font-sans: var(--font-open-sans);
+}
+
+@theme {
+  --color-bleu: #137cc1; /* aplats, grands titres */
+  --color-bleu-fonce: #0f6aa6; /* boutons, liens, petit texte sur blanc ou blanc sur bleu */
+  --color-texte: #6b6b6b;
+  --color-titre: #404040;
+  --color-filet: #e0e0e0;
+  --color-fond-doux: #f7f7f7;
+  --color-pied: #2e2e2e;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white font-sans text-[15px] leading-relaxed text-texte antialiased;
+  }
+  a {
+    @apply text-bleu-fonce;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-bleu-fonce;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

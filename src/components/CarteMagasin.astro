@@ -1,0 +1,74 @@
+---
+import { telephoneAffichage } from "../lib/horaires.ts";
+import { photoMagasin } from "../lib/images.ts";
+import {
+  adresseTexte,
+  urlItineraire,
+  urlMagasin,
+  type Magasin,
+} from "../lib/magasins.ts";
+import BadgeOuvert from "./BadgeOuvert.astro";
+import Visuel from "./Visuel.astro";
+
+interface Props {
+  magasin: Magasin;
+  titre?: "h2" | "h3";
+}
+
+const { magasin: m, titre: Titre = "h3" } = Astro.props;
+// Pas d'image provisoire répétée sur chaque carte : seulement une vraie photo.
+const photo = m.data.photos[0] ? photoMagasin(m, 0, "facade") : undefined;
+---
+
+<article class="flex flex-col overflow-hidden rounded border border-filet bg-white shadow-sm">
+  {photo && (
+    <Visuel
+      visuel={photo}
+      class="aspect-[4/3]"
+      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+    />
+  )}
+  <div class="flex flex-1 flex-col gap-2 p-5">
+    <Titre class="font-display text-2xl text-bleu">
+      <a href={urlMagasin(m)} class="text-bleu no-underline hover:underline">
+        {m.data.enseigne}
+      </a>
+    </Titre>
+    {m.data.repere && (
+      <p class="text-sm font-semibold text-titre uppercase">{m.data.repere}</p>
+    )}
+    <p>{adresseTexte(m)}</p>
+    <p>
+      <a href={`tel:${m.data.telephone}`} class="font-semibold">
+        {telephoneAffichage(m.data.telephone)}
+      </a>
+    </p>
+    {m.data.horaires.statut === "confirme" ? (
+      <BadgeOuvert magasin={m} />
+    ) : (
+      <p class="text-sm">Horaires : appelez le magasin.</p>
+    )}
+    <div class="mt-auto grid grid-cols-3 gap-2 pt-3 text-center text-[13px] font-semibold">
+      <a
+        href={`tel:${m.data.telephone}`}
+        class="rounded bg-bleu-fonce px-2 py-2 text-white no-underline"
+      >
+        Appeler
+      </a>
+      <a
+        href={urlItineraire(m)}
+        class="rounded border border-bleu-fonce px-2 py-2 no-underline"
+        rel="noopener"
+        target="_blank"
+      >
+        Itinéraire
+      </a>
+      <a
+        href={urlMagasin(m)}
+        class="rounded border border-bleu-fonce px-2 py-2 no-underline"
+      >
+        Détails<span class="sr-only"> sur {m.data.enseigne}</span>
+      </a>
+    </div>
+  </div>
+</article>

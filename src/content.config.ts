@@ -132,6 +132,8 @@ const reseau = defineCollection({
     nom: z.string().min(1),
     signature: z.string().min(1),
     description: z.string().min(1),
+    // Faits vérifiables uniquement (cahier des charges, validation du client).
+    pointsCles: z.array(z.string().min(1)).min(1),
   }),
 });
 

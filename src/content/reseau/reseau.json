@@ -1,5 +1,10 @@
 {
   "nom": "Les Pressings de Pau",
   "signature": "Pressings à Pau, Lons et Jurançon : particuliers et professionnels",
-  "description": "Cinq pressings à Pau, Lons et Jurançon, pour les particuliers et les professionnels."
+  "description": "Cinq pressings à Pau, Lons et Jurançon, pour les particuliers et les professionnels.",
+  "pointsCles": [
+    "Cinq pressings à Pau, Lons et Jurançon.",
+    "Pour les particuliers et les professionnels.",
+    "Les mêmes tarifs dans tous nos magasins."
+  ]
 }

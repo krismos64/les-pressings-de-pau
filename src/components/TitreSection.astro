@@ -1,0 +1,18 @@
+---
+// Titre centré entre deux filets, comme sur la référence.
+interface Props {
+  id?: string;
+}
+const { id } = Astro.props;
+---
+
+<div class="flex items-center gap-4">
+  <span class="h-px flex-1 bg-filet" aria-hidden="true"></span>
+  <h2
+    {id}
+    class="text-center text-lg font-semibold tracking-wide text-titre uppercase"
+  >
+    <slot />
+  </h2>
+  <span class="h-px flex-1 bg-filet" aria-hidden="true"></span>
+</div>

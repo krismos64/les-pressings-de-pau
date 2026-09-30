@@ -1,0 +1,50 @@
+---
+// Badge « ouvert maintenant » calculé dans le navigateur (heure de Paris).
+// N'est rendu que si les horaires sont confirmés.
+import type { Magasin } from "../lib/magasins.ts";
+
+interface Props {
+  magasin: Magasin;
+}
+
+const { horaires, fermetures } = Astro.props.magasin.data;
+---
+
+{horaires.statut === "confirme" && (
+  <span
+    data-badge-ouvert
+    data-semaine={JSON.stringify(horaires.semaine)}
+    data-fermetures={JSON.stringify(fermetures)}
+    class="text-sm font-semibold"
+    hidden
+  />
+)}
+
+<script>
+  import {
+    etatOuverture,
+    type Fermeture,
+    type Semaine,
+  } from "../lib/horaires.ts";
+
+  for (const el of document.querySelectorAll<HTMLElement>(
+    "[data-badge-ouvert]",
+  )) {
+    const semaine = JSON.parse(el.dataset["semaine"] ?? "{}") as Semaine;
+    const fermetures = JSON.parse(
+      el.dataset["fermetures"] ?? "[]",
+    ) as Fermeture[];
+    const etat = etatOuverture(semaine, fermetures, new Date());
+    if (etat.ouvert) {
+      el.textContent = `Ouvert, ferme à ${etat.fermeA.replace(":", "h")}`;
+      el.classList.add("text-green-700");
+    } else {
+      el.textContent =
+        etat.raison === "fermeture-exceptionnelle"
+          ? "Fermeture exceptionnelle"
+          : "Fermé actuellement";
+      el.classList.add("text-red-700");
+    }
+    el.hidden = false;
+  }
+</script>

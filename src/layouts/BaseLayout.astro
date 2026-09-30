@@ -1,12 +1,19 @@
 ---
+import { Font } from "astro:assets";
+
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Topbar from "../components/Topbar.astro";
 import "../styles/global.css";
 
 interface Props {
   title: string;
   description: string;
+  /** Objets JSON-LD de la page. */
+  jsonLd?: Record<string, unknown>[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, jsonLd = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Previews de branche : PUBLIC_NOINDEX=true au build pour ne pas être indexé.
 const noindex = import.meta.env.PUBLIC_NOINDEX === "true";
@@ -21,10 +28,40 @@ const noindex = import.meta.env.PUBLIC_NOINDEX === "true";
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <Font cssVariable="--font-contrail-one" preload />
+    <Font cssVariable="--font-open-sans" preload />
+    {jsonLd.map((ld) => (
+      <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    ))}
   </head>
   <body>
-    <slot />
+    <a
+      href="#contenu"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:p-2"
+    >
+      Aller au contenu
+    </a>
+    <Topbar />
+    <Header />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // Masque les fermetures exceptionnelles passées depuis le dernier build.
+      import { instantParis } from "../lib/horaires.ts";
+
+      const aujourdhui = instantParis(new Date()).date;
+      for (const el of document.querySelectorAll<HTMLElement>("[data-au]")) {
+        if ((el.dataset["au"] ?? "") < aujourdhui) el.hidden = true;
+      }
+    </script>
   </body>
 </html>
