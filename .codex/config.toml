@@ -1,0 +1,13 @@
+# Config Codex du projet (chargée seulement si le projet est "trusted" dans ~/.codex/config.toml).
+# Instructions : AGENTS.md à la racine. Modèle volontairement non figé (défaut de Codex).
+
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+model_reasoning_effort = "high"
+web_search = "live"
+
+[mcp_servers.astro-docs]
+url = "https://mcp.docs.astro.build/mcp"
+
+[mcp_servers.cloudflare-docs]
+url = "https://docs.mcp.cloudflare.com/mcp"

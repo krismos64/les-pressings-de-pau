@@ -1,0 +1,26 @@
+# Dépendances et build
+node_modules/
+dist/
+.astro/
+.wrangler/
+
+# Documents et contexte client (confidentiels, conservés en local uniquement)
+docs/sources/
+docs/prive/
+
+# Secrets
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# Claude Code : réglages personnels
+.claude/settings.local.json
+CLAUDE.local.md
+
+# Système et éditeurs
+.DS_Store
+*.log
+.vscode/*
+!.vscode/extensions.json
+.idea/
