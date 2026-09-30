@@ -1,6 +1,6 @@
 ---
-name: codex
-description: Consulter Codex CLI pour un avis critique, de nouvelles idées, une revue de code ou la génération d'une image. Utiliser quand Christophe demande l'avis de Codex, une image, ou avant de valider une décision d'architecture importante.
+name: codex-pressings
+description: Consulter Codex CLI sur le projet Les Pressings de Pau pour un avis critique, de nouvelles idées, une revue de code ou la génération d'une image. Utiliser quand Christophe demande l'avis de Codex, une image, ou avant de valider une décision d'architecture importante.
 argument-hint: "[critique|idees|review|image] <sujet>"
 ---
 

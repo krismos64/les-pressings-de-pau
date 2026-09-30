@@ -16,7 +16,7 @@ Mise en place le 30 septembre 2026, chaque choix validé par Christophe.
 | `hooks/rappel-secrets.sh`     | PostToolUse Edit/Write : rappel si `.env*` ou secret apparent                                                                 |
 | `hooks/astro-check-stop.sh`   | Stop : `astro check` (Node du `.nvmrc` via nvm) si le code a changé depuis la dernière vérification                           |
 | `hooks/journal-demarrage.sh`  | SessionStart : injecte la dernière entrée de `docs/prive/journal/`. Partagé avec Codex                                        |
-| `skills/codex`                | Consulter Codex (avis, idées, review, image)                                                                                  |
+| `skills/codex-pressings`      | Consulter Codex (avis, idées, review, image)                                                                                  |
 | `skills/maj-magasin`          | Modifier un magasin + synchro fiche Google                                                                                    |
 | `skills/seo-local`            | Checklist SEO local + GEO                                                                                                     |
 | `skills/journal`              | Entrée de fin de session dans `docs/prive/journal/` (partagé avec Codex)                                                      |

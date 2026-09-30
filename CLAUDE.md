@@ -5,7 +5,7 @@
 
 ## Codex
 
-Codex CLI sert de second avis et de générateur d'images. Toujours passer par le skill `/codex`.
+Codex CLI sert de second avis et de générateur d'images. Toujours passer par le skill `/codex-pressings` (le skill global `codex` sert au portfolio).
 
 - À solliciter : quand Christophe le demande, et à chaque décision d'architecture importante (avis critique).
 - Présenter l'avis de Codex à côté du tien, en signalant clairement les désaccords.
@@ -13,7 +13,7 @@ Codex CLI sert de second avis et de générateur d'images. Toujours passer par l
 
 ## Skills du projet (`.claude/skills/`)
 
-- `codex` : consulter Codex (avis critique, idées, revue, image).
+- `codex-pressings` : consulter Codex (avis critique, idées, revue, image).
 - `maj-magasin` : modifier horaires, fermetures, coordonnées ou photos d'un magasin, avec synchro fiche Google.
 - `seo-local` : checklist SEO local + GEO avant toute mise en ligne d'une page.
 - `journal` : entrée de fin de session dans `docs/prive/journal/`.
