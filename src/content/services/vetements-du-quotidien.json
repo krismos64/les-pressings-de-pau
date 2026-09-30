@@ -1,0 +1,26 @@
+{
+  "ordre": 1,
+  "nom": "Vêtements du quotidien",
+  "description": "Chemises, chemisiers, pulls, polos, tee-shirts, pantalons, jupes, robes, vestes et gilets.",
+  "tarifs": [
+    "chemise",
+    "chemisier",
+    "pull",
+    "polo",
+    "tee-shirt",
+    "pantalon",
+    "bermuda-short",
+    "jupe",
+    "jupe-plissee",
+    "robe",
+    "veste",
+    "gilet-laine-costume-matelasse",
+    "cravate",
+    "foulard",
+    "echarpe-etole"
+  ],
+  "illustration": {
+    "src": "../../assets/illustrations/service-chemise.jpg",
+    "alt": "Chemise blanche repassée sur un cintre"
+  }
+}

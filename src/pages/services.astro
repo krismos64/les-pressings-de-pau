@@ -1,0 +1,65 @@
+---
+import { Image } from "astro:assets";
+
+import TitreSection from "../components/TitreSection.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { prixEuros, prixMinimum, servicesTries } from "../lib/services.ts";
+
+const illustrations = (await servicesTries()).flatMap((s) =>
+  s.data.illustration ? [s.data.illustration] : [],
+);
+const services = await Promise.all(
+  (await servicesTries()).map(async (s) => ({ s, min: await prixMinimum(s) })),
+);
+---
+
+<BaseLayout
+  title="Services du pressing à Pau, Lons et Jurançon"
+  description="Nettoyage des vêtements, manteaux, robes de mariée, cuir et daim, couettes, rideaux et tapis dans nos cinq pressings de Pau, Lons et Jurançon."
+>
+  <div class="bg-bleu-fonce py-10 text-center text-white">
+    <h1 class="font-display text-4xl">Nos services</h1>
+    <p class="mx-auto mt-3 max-w-xl px-4">
+      Nettoyage, nettoyage à sec et repassage. Tous les articles sont acceptés
+      dans nos cinq pressings.
+    </p>
+  </div>
+
+  {illustrations.length > 0 && (
+    <div class="mx-auto grid max-w-6xl grid-cols-2 gap-3 px-4 pt-8 md:grid-cols-4">
+      {illustrations.map((i) => (
+        <Image
+          src={i.src}
+          alt={i.alt}
+          widths={[300, 600]}
+          sizes="(min-width: 768px) 25vw, 50vw"
+          class="aspect-square w-full rounded object-cover"
+        />
+      ))}
+    </div>
+  )}
+
+  <div class="mx-auto max-w-5xl px-4 py-12">
+    <TitreSection>Ce que nous nettoyons</TitreSection>
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
+      {services.map(({ s, min }) => (
+        <article
+          id={s.id}
+          class="flex scroll-mt-24 flex-col gap-2 rounded border border-filet bg-white p-5 shadow-sm"
+        >
+          <h2 class="font-display text-2xl text-bleu">{s.data.nom}</h2>
+          <p>{s.data.description}</p>
+          <p class="mt-auto pt-1 font-semibold text-titre">
+            À partir de {prixEuros(min.centimes)}
+            {min.unite === "m2" && " le m²"}
+          </p>
+        </article>
+      ))}
+    </div>
+    <p class="mt-10 text-center">
+      <a href="/tarifs/" class="font-semibold">
+        Voir nos tarifs
+      </a>
+    </p>
+  </div>
+</BaseLayout>

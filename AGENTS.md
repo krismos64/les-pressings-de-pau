@@ -21,7 +21,7 @@ Répondre et rédiger en français.
 | Pressing du Gave    | Centre commercial Beaugency, av. des Vallées, 64110 Jurançon | 05 59 06 31 14 |
 
 - Horaires, services et informations internes : uniquement ceux fournis par Christophe (voir le contexte confidentiel). Ne jamais en reprendre d'un annuaire ou de Google.
-- Tous les prix sont identiques dans les cinq magasins.
+- Tous les prix sont identiques dans les cinq magasins, et tous les magasins proposent tous les articles de la grille (`src/content/tarifs.json`).
 - Seuls ces cinq magasins figurent sur le site.
 
 ## Périmètre

@@ -1,0 +1,10 @@
+{
+  "ordre": 10,
+  "nom": "Réimperméabilisation et replissage",
+  "description": "Réimperméabilisation d'un vêtement et replissage de jupe, en supplément du nettoyage.",
+  "tarifs": ["reimpermeabilisation", "replissage-de-jupe"],
+  "illustration": {
+    "src": "../../assets/illustrations/service-repassage.jpg",
+    "alt": "Fer à repasser posé sur une chemise blanche"
+  }
+}

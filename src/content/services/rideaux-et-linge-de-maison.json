@@ -1,0 +1,23 @@
+{
+  "ordre": 7,
+  "nom": "Linge de maison et rideaux",
+  "description": "Draps, housses de couette, taies, alèses, rideaux, doubles rideaux, nappes, serviettes, torchons, peignoirs, robes de chambre et housses de canapé clic-clac.",
+  "tarifs": [
+    "alese",
+    "draps-simples",
+    "drap-housse",
+    "housse-de-couette",
+    "taie",
+    "rideaux",
+    "doubles-rideaux-doubles",
+    "doubles-rideaux-simples",
+    "nappe-grande",
+    "nappe-simple",
+    "serviette-de-table",
+    "serviette-de-toilette-et-de-bain",
+    "torchon-gant-de-toilette",
+    "peignoir",
+    "robe-de-chambre",
+    "housse-de-canape-clic-clac"
+  ]
+}

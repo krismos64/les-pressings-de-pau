@@ -15,8 +15,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "node --test \"src/**/*.test.ts\"",
-    "verif-publication": "node scripts/verif-publication.ts"
+    "test": "node --disable-warning=ExperimentalWarning --test \"src/**/*.test.ts\"",
+    "verif-publication": "node --disable-warning=ExperimentalWarning scripts/verif-publication.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

@@ -1,0 +1,17 @@
+{
+  "ordre": 2,
+  "nom": "Manteaux et vêtements d'hiver",
+  "description": "Manteaux, manteaux et blousons en plume, parkas, anoraks, imperméables, capes, gants et bérets.",
+  "tarifs": [
+    "manteau",
+    "manteau-plume",
+    "blouson",
+    "blouson-plume",
+    "parka",
+    "anorak",
+    "impermeable",
+    "cape",
+    "gant",
+    "beret-casquette"
+  ]
+}

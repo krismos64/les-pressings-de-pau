@@ -1,0 +1,17 @@
+{
+  "ordre": 4,
+  "nom": "Robes de mariée et tenues de cérémonie",
+  "description": "Robes de mariée, robes de soirée, aubes, kimonos et jupes hakama.",
+  "tarifs": [
+    "robe-de-mariee",
+    "robe-de-soiree",
+    "aube",
+    "kimono",
+    "jupe-hakama",
+    "djellaba"
+  ],
+  "illustration": {
+    "src": "../../assets/illustrations/service-nettoyage-a-sec.jpg",
+    "alt": "Veste et robe sous housses de protection sur un portant"
+  }
+}

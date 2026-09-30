@@ -1,0 +1,6 @@
+{
+  "ordre": 3,
+  "nom": "Vêtements de ski",
+  "description": "Combinaisons, blousons et pantalons de ski.",
+  "tarifs": ["combinaison-de-ski", "blouson-de-ski", "pantalon-de-ski"]
+}

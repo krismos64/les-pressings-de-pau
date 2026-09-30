@@ -1,0 +1,6 @@
+{
+  "ordre": 8,
+  "nom": "Tapis",
+  "description": "Nettoyage des tapis, facturé au mètre carré.",
+  "tarifs": ["tapis"]
+}

@@ -1,0 +1,6 @@
+{
+  "ordre": 9,
+  "nom": "Vêtements de travail",
+  "description": "Blouses, combinaisons de travail et salopettes.",
+  "tarifs": ["blouse-de-travail", "combinaison-de-travail", "salopette"]
+}

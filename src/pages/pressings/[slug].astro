@@ -20,6 +20,7 @@ import {
   urlItineraire,
   type Magasin,
 } from "../../lib/magasins.ts";
+import { servicesTries } from "../../lib/services.ts";
 
 export const getStaticPaths = (async () => {
   const magasins = await magasinsTries();
@@ -35,6 +36,7 @@ interface Props {
 }
 
 const { magasin: m, magasins } = Astro.props;
+const services = await servicesTries();
 const d = m.data;
 const site = Astro.site ?? new URL("https://lespressingsdepau.fr");
 const tel = telephoneAffichage(d.telephone);
@@ -158,6 +160,22 @@ const autres = magasins
       <p class="mt-6">{d.acces}</p>
     </section>
   )}
+
+  <section class="mx-auto max-w-4xl px-4 pb-12">
+    <TitreSection>Nos services</TitreSection>
+    <ul class="mt-6 flex flex-wrap justify-center gap-2">
+      {services.map((s) => (
+        <li>
+          <a
+            href={`/services/#${s.id}`}
+            class="block rounded-full border border-bleu-fonce px-4 py-1.5 text-sm no-underline"
+          >
+            {s.data.nom}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
 
   <section class="bg-fond-doux py-12">
     <div class="mx-auto max-w-6xl px-4">

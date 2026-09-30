@@ -1,0 +1,6 @@
+{
+  "ordre": 5,
+  "nom": "Cuir et daim",
+  "description": "Vêtements en cuir et en daim.",
+  "tarifs": ["cuir", "daim"]
+}

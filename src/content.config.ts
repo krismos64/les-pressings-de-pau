@@ -62,7 +62,6 @@ const magasins = defineCollection({
       googleMapsUrl: z.url().optional(),
       horaires,
       fermetures: z.array(fermeture).default([]),
-      services: z.array(reference("services")).default([]),
       societe: reference("societes").optional(),
       acces: z.string().optional(),
       photos: z
@@ -71,14 +70,19 @@ const magasins = defineCollection({
     }),
 });
 
+// Prestations proposées dans les cinq magasins, chacune reliée à ses lignes de tarif.
 const services = defineCollection({
   loader: glob({ base: "./src/content/services", pattern: "*.json" }),
-  schema: z.object({
-    ordre: z.number().int(),
-    nom: z.string().min(1),
-    description: z.string().min(1),
-    publics: z.array(z.enum(["particuliers", "professionnels"])).min(1),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      ordre: z.number().int(),
+      nom: z.string().min(1),
+      description: z.string().min(1),
+      tarifs: z.array(reference("tarifs")).min(1),
+      illustration: z
+        .object({ src: image(), alt: z.string().min(1) })
+        .optional(),
+    }),
 });
 
 // Grille de prix commune aux cinq magasins (panneau en magasin), en centimes TTC.

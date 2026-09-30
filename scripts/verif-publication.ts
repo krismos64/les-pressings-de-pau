@@ -19,12 +19,10 @@ for (const fichier of readdirSync(dossierMagasins).filter((f) =>
   if (!m.geo) points.push(`${nom} : coordonnées GPS manquantes`);
   if (!m.googleMapsUrl) points.push(`${nom} : lien Google Maps manquant`);
   if (!m.photos?.length) points.push(`${nom} : aucune photo`);
-  if (!m.services?.length) points.push(`${nom} : aucun service associé`);
 }
 
 const compter = (dossier: string): number =>
   readdirSync(join(racine, dossier)).filter((f) => f.endsWith(".json")).length;
-if (compter("src/content/services") === 0) points.push("Aucun service défini");
 if (compter("src/content/societes") === 0)
   points.push("Aucune société (mentions légales)");
 

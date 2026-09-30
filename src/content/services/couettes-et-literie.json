@@ -1,0 +1,20 @@
+{
+  "ordre": 6,
+  "nom": "Couettes et literie",
+  "description": "Couettes plume ou synthétiques, couvertures, boutis, dessus de lit, coussins, traversins et sacs de couchage.",
+  "tarifs": [
+    "couette-plume",
+    "couette-synthetique",
+    "couverture",
+    "boutis",
+    "dessus-de-lit",
+    "coussin-traversin",
+    "coussin-traversin-plume",
+    "sac-de-couchage",
+    "sac-de-couchage-plume"
+  ],
+  "illustration": {
+    "src": "../../assets/illustrations/service-lavage.jpg",
+    "alt": "Linge de lit propre et plié sur une table"
+  }
+}
