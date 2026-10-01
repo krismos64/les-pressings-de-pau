@@ -1,61 +1,47 @@
 ---
 name: codex-pressings
-description: Consulter Codex CLI sur le projet Les Pressings de Pau pour un avis critique, de nouvelles idées, une revue de code ou la génération d'une image. Utiliser quand Christophe demande l'avis de Codex, une image, ou avant de valider une décision d'architecture importante.
+description: Règles propres aux Pressings de Pau quand on consulte Codex (avis critique, idées, revue de code, image). Les appels passent par le skill global codex. Utiliser quand Christophe demande l'avis de Codex ou une image sur ce projet, ou avant de valider une décision d'architecture importante.
 argument-hint: "[critique|idees|review|image] <sujet>"
 ---
 
-# Consulter Codex
+# Codex sur Les Pressings de Pau
 
-Codex est un second avis indépendant. Il ne décide rien : Christophe tranche.
-
-## Règles d'appel (toutes les commandes)
-
-- **Toujours fermer stdin avec `< /dev/null`**, sinon `codex exec` attend une saisie et reste bloqué indéfiniment.
-- Lancer en arrière-plan (`run_in_background`) : une réponse prend de 1 à 10 minutes. macOS n'a pas `timeout`.
-- Écrire la réponse finale dans un fichier avec `-o` (stdout contient aussi la progression).
-- Donner à Codex le contexte utile : il lit `AGENTS.md` automatiquement quand on lance depuis la racine du projet, pas l'historique de la conversation.
-- Si Codex est vieux (`codex --version` vs `npm view @openai/codex version`), lancer `codex update`.
-
-## Avis critique ou idées (lecture seule)
+Les appels passent par le script du skill global `codex` (voir son SKILL.md pour
+les options) :
 
 ```bash
-codex exec -C "$CLAUDE_PROJECT_DIR" -s read-only --ephemeral \
-  -o "$SCRATCH/codex-avis.md" "<prompt>" < /dev/null > "$SCRATCH/codex.log" 2>&1
+S=~/.claude/skills/codex/codex.sh
 ```
 
-`$SCRATCH` = répertoire scratchpad de la session. Structure du prompt :
+Lancer depuis la racine du projet, en arrière-plan (`run_in_background`) : une
+réponse prend de 1 à 10 minutes. Codex lit `AGENTS.md` à la racine, pas
+l'historique de la conversation : lui donner le contexte utile avec
+`--contexte AGENTS.md` ou `--contexte <fichier concerné>`.
 
-1. Rôle : « consultant senior, critique et sans complaisance ».
-2. Contexte : la décision ou le fichier concerné, les contraintes, ce qui est déjà décidé et **non validé**.
-3. Demande : vérifier les faits (Codex a la recherche web), critiquer, proposer des alternatives, donner un verdict.
-4. Format : français, concis, pas de tirets cadratins.
+Ne jamais appeler `codex` directement avec `-s` / `--sandbox` : ce drapeau
+désactive le profil `lecture` de `~/.codex/config.toml` et rouvre la lecture de
+tout le disque.
 
-## Revue de code
+## Règles propres au projet
 
-```bash
-codex review --uncommitted < /dev/null > "$SCRATCH/codex-review.md" 2>&1
-```
-
-Variantes : `--base main`, `--commit <sha>`. Ne pas combiner un prompt positionnel avec `--base` ou `--uncommitted` (refusé par certaines versions).
-
-## Génération d'image
-
-Outil `image_gen` intégré (gpt-image-2 sur le compte ChatGPT, sans clé API). Il faut l'écriture pour la copie finale :
-
-```bash
-codex exec -C "$CLAUDE_PROJECT_DIR" -s workspace-write --ephemeral \
-  -o "$SCRATCH/codex-image.md" '$imagegen <description précise : sujet, cadrage, style, format, ratio>. Enregistre le résultat dans <chemin/fichier.png>.' < /dev/null
-```
-
-- Si le fichier n'apparaît pas dans le projet, le récupérer dans `~/.codex/generated_images/` (le plus récent).
-- Image de référence possible avec `-i <fichier>`.
-- **Jamais d'image générée présentée comme une vraie photo d'un magasin** : le site exige de vraies photos (cahier des charges §6). Les images générées servent aux maquettes, illustrations neutres ou visuels de réseaux sociaux.
-- Destination : `src/assets/provisoire/facade-provisoire.jpg` ou `interieur-provisoire.jpg` (images de repli des magasins, badge automatique) ou `src/assets/illustrations/` (visuel neutre). Demander des images sans texte, logo ni enseigne lisible.
-- Convertir ensuite en JPEG qualité 85 (`sips -s format jpeg -s formatOptions 85`) : les PNG générés pèsent environ 2 Mo.
+- Codex est un second avis indépendant. Il ne décide rien : Christophe tranche.
+- Avis et idées : lui demander de vérifier les faits (la config du projet active
+  la recherche web), de proposer des alternatives et de donner un verdict.
+- Images : **jamais d'image générée présentée comme une vraie photo d'un
+  magasin**, le site exige de vraies photos (cahier des charges §6). Les images
+  générées servent aux maquettes, illustrations neutres ou visuels de réseaux
+  sociaux, sans texte, logo ni enseigne lisible.
+- Destinations des images : `src/assets/provisoire/facade-provisoire.jpg` ou
+  `interieur-provisoire.jpg` (images de repli des magasins, badge automatique),
+  ou `src/assets/illustrations/` (visuel neutre). Générer avec
+  `$S image --sortie <fichier.png> "<description>"`, puis convertir en JPEG
+  qualité 85 (`sips -s format jpeg -s formatOptions 85`) : les PNG générés
+  pèsent environ 2 Mo.
 - Montrer l'image à Christophe (Read du fichier) avant tout usage.
 
 ## Restitution à Christophe
 
-- Présenter l'avis de Codex **à côté** du tien : points d'accord, points où il te corrige (et si tu lui donnes raison), désaccords restants.
+- Présenter l'avis de Codex **à côté** du tien : points d'accord, points où il te
+  corrige (et si tu lui donnes raison), désaccords restants.
 - Signaler les affirmations de Codex non vérifiées.
 - Ne rien appliquer sans validation.
