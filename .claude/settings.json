@@ -26,7 +26,11 @@
       "mcp__astro-docs__*",
       "mcp__cloudflare-docs__*"
     ],
-    "ask": ["Bash(npx wrangler deploy:*)", "Bash(wrangler deploy:*)"]
+    "ask": [
+      "Bash(npm run deploy:*)",
+      "Bash(npx wrangler deploy:*)",
+      "Bash(wrangler deploy:*)"
+    ]
   },
   "enabledMcpjsonServers": ["astro-docs", "cloudflare-docs"],
   "hooks": {

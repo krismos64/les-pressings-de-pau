@@ -17,7 +17,7 @@ Codex CLI sert de second avis et de générateur d'images. Toujours passer par l
 - `maj-magasin` : modifier horaires, fermetures, coordonnées ou photos d'un magasin, avec synchro fiche Google.
 - `seo-local` : checklist SEO local + GEO avant toute mise en ligne d'une page.
 - `journal` : entrée de fin de session dans `docs/prive/journal/`.
-- `deploy` : à créer au moment de la mise en ligne.
+- `deploy` : à créer au branchement du domaine (DNS OVH vers Cloudflare). Le déploiement lui-même passe déjà par la CI (`npm run deploy`).
 
 ## Agents du projet (`.claude/agents/`)
 

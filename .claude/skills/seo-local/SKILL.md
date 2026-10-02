@@ -28,7 +28,7 @@ Qu'une personne cherchant « pressing Pau », « pressing Lons », « pressing J
 ## Checklist site
 
 - [ ] `robots.txt` autorise les robots de recherche et d'IA (Googlebot, Bingbot, GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot).
-- [ ] Previews de branche en `noindex`.
+- [ ] Adresse `*.workers.dev` en `noindex` (`public/_headers`), vrai domaine indexable.
 - [ ] Accueil : les cinq magasins au même niveau, trois villes citées dans le `<h1>` ou le premier paragraphe.
 - [ ] FAQ avec les vraies réponses (données `FAQPage` seulement si le contenu est visible).
 - [ ] JSON-LD `Organization` du réseau sur l'accueil, relié aux magasins.

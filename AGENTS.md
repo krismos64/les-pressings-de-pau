@@ -70,7 +70,7 @@ Node 24 via nvm (`.nvmrc`, `nvm use`). Commandes : `npm run dev`, `npm run build
 - Chaque fiche Google pointera vers la page de son magasin (avec UTM), pas vers l'accueil.
 - Pas de note ni d'avis en données structurées (avis auto-publiés ignorés par Google). Lien « Voir les avis Google » à la place.
 - Coordonnées en HTML visible, vraies photos avec `alt` descriptif, FAQ rédigée avec les vraies réponses.
-- Previews de branche en `noindex`.
+- Adresse provisoire `*.workers.dev` en `noindex` (`public/_headers`), pas de preview par branche (`preview_urls: false`).
 - `llms.txt` facultatif, non prioritaire.
 
 ## Rédaction (tout texte publié)

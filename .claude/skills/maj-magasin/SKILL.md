@@ -40,3 +40,5 @@ Donner à Christophe la liste des mises à jour à faire, avec les valeurs exact
 ## 5. Commit
 
 Conventional Commits en français, par exemple `fix: met à jour les horaires du Pressing du Gave`.
+
+Après validation de Christophe, le push sur `main` publie le site (job `deployer` de la CI). Vérifier ensuite la page du magasin en ligne.

@@ -9,23 +9,23 @@ Mise en place le 30 septembre 2026, chaque choix validé par Christophe.
 
 ## Claude Code (`.claude/`)
 
-| Élément                       | Rôle                                                                                                                          |
-| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `settings.json`               | Permissions du projet (aucun deny), `wrangler deploy` en confirmation, attribution désactivée, MCP du projet approuvés, hooks |
-| `hooks/anti-cadratin.sh`      | PostToolUse Edit/Write : signale les tirets U+2014 et U+2013. Partagé avec Codex                                              |
-| `hooks/rappel-secrets.sh`     | PostToolUse Edit/Write : rappel si `.env*` ou secret apparent                                                                 |
-| `hooks/astro-check-stop.sh`   | Stop : `astro check` (Node du `.nvmrc` via nvm) si le code a changé depuis la dernière vérification                           |
-| `hooks/journal-demarrage.sh`  | SessionStart : injecte la dernière entrée de `docs/prive/journal/`. Partagé avec Codex                                        |
-| `skills/codex-pressings`      | Consulter Codex (avis, idées, review, image)                                                                                  |
-| `skills/maj-magasin`          | Modifier un magasin + synchro fiche Google                                                                                    |
-| `skills/seo-local`            | Checklist SEO local + GEO                                                                                                     |
-| `skills/journal`              | Entrée de fin de session dans `docs/prive/journal/` (partagé avec Codex)                                                      |
-| `agents/verificateur-contenu` | Lecture seule : infos inventées, formules vagues, cadratins                                                                   |
-| `agents/auditeur-seo-local`   | Lecture seule : audit du site construit + Lighthouse                                                                          |
+| Élément                       | Rôle                                                                                                                                              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `settings.json`               | Permissions du projet (aucun deny), `npm run deploy` et `wrangler deploy` en confirmation, attribution désactivée, MCP du projet approuvés, hooks |
+| `hooks/anti-cadratin.sh`      | PostToolUse Edit/Write : signale les tirets U+2014 et U+2013. Partagé avec Codex                                                                  |
+| `hooks/rappel-secrets.sh`     | PostToolUse Edit/Write : rappel si `.env*` ou secret apparent                                                                                     |
+| `hooks/astro-check-stop.sh`   | Stop : `astro check` (Node du `.nvmrc` via nvm) si le code a changé depuis la dernière vérification                                               |
+| `hooks/journal-demarrage.sh`  | SessionStart : injecte la dernière entrée de `docs/prive/journal/`. Partagé avec Codex                                                            |
+| `skills/codex-pressings`      | Consulter Codex (avis, idées, review, image)                                                                                                      |
+| `skills/maj-magasin`          | Modifier un magasin + synchro fiche Google                                                                                                        |
+| `skills/seo-local`            | Checklist SEO local + GEO                                                                                                                         |
+| `skills/journal`              | Entrée de fin de session dans `docs/prive/journal/` (partagé avec Codex)                                                                          |
+| `agents/verificateur-contenu` | Lecture seule : infos inventées, formules vagues, cadratins                                                                                       |
+| `agents/auditeur-seo-local`   | Lecture seule : audit du site construit + Lighthouse                                                                                              |
 
 Tous les hooks sont **non bloquants**. Angle mort : un fichier modifié via Bash (`sed`, heredoc) ne déclenche pas les hooks Edit/Write.
 
-Skill `deploy` : à écrire au moment de la mise en ligne (workflow GitHub Actions, bascule DNS OVH vers Cloudflare sans perdre les e-mails).
+Déploiement : en place depuis le 2 octobre 2026 (job `deployer` de la CI, adresse provisoire `*.workers.dev` en `noindex`, voir le README). Skill `deploy` : à écrire au moment de la mise en ligne (branchement du domaine, bascule DNS OVH vers Cloudflare sans perdre les e-mails).
 
 ## Codex (`.codex/`, `.agents/`)
 
