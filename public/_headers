@@ -1,0 +1,4 @@
+# En-têtes ajoutés par Cloudflare Workers Static Assets.
+# Adresse provisoire *.workers.dev : jamais indexée (seul le vrai domaine doit l'être).
+https://:worker.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex

@@ -35,11 +35,12 @@ Pages : accueil, `/pressings/` + une page par magasin, `/services/`, `/professio
 
 - **Astro** (sortie statique) + **TypeScript strict** + **Tailwind CSS**.
 - **CI GitHub Actions** à chaque push : check, lint, format, tests, build.
-- Hébergement prévu : **Cloudflare Workers Static Assets**, déploiement par GitHub Actions (`wrangler deploy`) et rebuild quotidien (fermetures passées). À mettre en place avec le domaine.
+- Hébergement : **Cloudflare Workers Static Assets**. Le job `deployer` de la CI lance `npm run deploy` (`wrangler deploy`) à chaque push sur `main` et chaque nuit (fermetures passées retirées du HTML). Secrets GitHub requis : `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` ; sans eux, le job est ignoré.
+- Adresse provisoire pour le client : `*.workers.dev`, en `noindex` via `public/_headers`. Le domaine sera branché à la mise en ligne.
 - Domaine et e-mail chez **OVH**, DNS délégués à Cloudflare au moment de la mise en ligne.
 - Plus tard, peut-être : **Sveltia CMS** pour que le client édite horaires, fermetures et textes.
 
-Node 24 via nvm (`.nvmrc`, `nvm use`). Commandes : `npm run dev`, `npm run build`, `npm run preview`, `npm run check` (astro check), `npm run lint`, `npm run format`, `npm test` (tests des horaires, `node --test`), `npm run verif-publication` (liste ce qui reste à valider avant la mise en ligne).
+Node 24 via nvm (`.nvmrc`, `nvm use`). Commandes : `npm run dev`, `npm run build`, `npm run preview`, `npm run deploy` (build + `wrangler deploy`), `npm run check` (astro check), `npm run lint`, `npm run format`, `npm test` (tests des horaires, `node --test`), `npm run verif-publication` (liste ce qui reste à valider avant la mise en ligne).
 
 ## Règles d'architecture
 

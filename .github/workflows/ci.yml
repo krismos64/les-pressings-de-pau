@@ -4,6 +4,11 @@ on:
   push:
     branches: ["**"]
   pull_request:
+  # Rebuild quotidien : les fermetures exceptionnelles passées disparaissent du HTML.
+  # 23h05 UTC = 0h05 ou 1h05 à Paris selon l'heure d'été.
+  schedule:
+    - cron: "5 23 * * *"
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -27,3 +32,30 @@ jobs:
       - run: npm run format:check
       - run: npm test
       - run: npm run build
+
+  deployer:
+    needs: verifier
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    # Pas de déploiement concurrent : le dernier push l'emporte.
+    concurrency:
+      group: deploiement
+      cancel-in-progress: false
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Secrets Cloudflare absents, déploiement ignoré
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::notice::Ajouter CLOUDFLARE_API_TOKEN et CLOUDFLARE_ACCOUNT_ID dans les secrets du dépôt pour activer le déploiement."
+      - uses: actions/checkout@v7
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - uses: actions/setup-node@v7
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - run: npm run deploy
+        if: env.CLOUDFLARE_API_TOKEN != ''

@@ -26,7 +26,7 @@ Accueil, `/pressings/` et une page par magasin, `/services/`, `/tarifs/`, `/prof
 | Données     | Content collections validées par Zod                          |
 | Polices     | Open Sans et Contrail One, auto-hébergées (Fonts API d'Astro) |
 | Qualité     | ESLint 10, Prettier, `astro check`, tests `node --test`       |
-| Hébergement | Cloudflare Workers Static Assets (à venir)                    |
+| Hébergement | Cloudflare Workers Static Assets                              |
 | CI          | GitHub Actions                                                |
 
 Aucun framework JavaScript côté client : environ 1 Ko de JavaScript par page, pour le badge « ouvert maintenant ».
@@ -43,16 +43,17 @@ npm run dev      # http://localhost:4321
 
 ## Commandes
 
-| Commande                    | Rôle                                                |
-| --------------------------- | --------------------------------------------------- |
-| `npm run dev`               | Serveur de développement                            |
-| `npm run build`             | Génère le site dans `dist/`                         |
-| `npm run preview`           | Sert le site généré                                 |
-| `npm run check`             | Vérification des types (`astro check`)              |
-| `npm run lint`              | ESLint, règles d'accessibilité comprises            |
-| `npm run format`            | Formate le code avec Prettier                       |
-| `npm test`                  | Tests des fonctions d'horaires                      |
-| `npm run verif-publication` | Liste ce qui reste à valider avant la mise en ligne |
+| Commande                    | Rôle                                                      |
+| --------------------------- | --------------------------------------------------------- |
+| `npm run dev`               | Serveur de développement                                  |
+| `npm run build`             | Génère le site dans `dist/`                               |
+| `npm run preview`           | Sert le site généré                                       |
+| `npm run deploy`            | Build puis déploiement sur Cloudflare (`wrangler deploy`) |
+| `npm run check`             | Vérification des types (`astro check`)                    |
+| `npm run lint`              | ESLint, règles d'accessibilité comprises                  |
+| `npm run format`            | Formate le code avec Prettier                             |
+| `npm test`                  | Tests des fonctions d'horaires                            |
+| `npm run verif-publication` | Liste ce qui reste à valider avant la mise en ligne       |
 
 ## Structure
 
@@ -98,7 +99,7 @@ Toutes les informations métier vivent dans `src/content/`. Aucune n'est écrite
 }
 ```
 
-**Fermeture exceptionnelle** : ajouter `{ "du": "2026-12-24", "au": "2026-12-26" }` dans `fermetures` (fin incluse). Une fois la date passée, l'annonce est masquée dans le navigateur, puis retirée du HTML au build suivant (un rebuild quotidien est prévu avec le déploiement).
+**Fermeture exceptionnelle** : ajouter `{ "du": "2026-12-24", "au": "2026-12-26" }` dans `fermetures` (fin incluse). Une fois la date passée, l'annonce est masquée dans le navigateur, puis retirée du HTML au build suivant (rebuild automatique chaque nuit).
 
 **Tarifs** : `src/content/tarifs.json`, montants en centimes TTC. Le champ `selection` choisit les lignes affichées sur la page Tarifs ; les prix « à partir de » de la page Services sont calculés automatiquement.
 
@@ -107,6 +108,12 @@ Le build échoue si une donnée est incohérente (heure invalide, plages qui se 
 ## Qualité et vérifications
 
 À chaque push, la CI exécute `check`, `lint`, `format:check`, les tests et le build.
+
+## Déploiement
+
+Sur `main`, le job `deployer` de la CI publie le site sur Cloudflare Workers après les vérifications, puis chaque nuit pour retirer les fermetures passées. Il lit deux secrets du dépôt, `CLOUDFLARE_API_TOKEN` (modèle « Edit Cloudflare Workers ») et `CLOUDFLARE_ACCOUNT_ID`, et ne fait rien tant qu'ils sont absents.
+
+En attendant le domaine, le site est servi sur une adresse `*.workers.dev`. Le fichier `public/_headers` y ajoute `X-Robots-Tag: noindex` pour qu'elle ne soit pas indexée.
 
 Objectifs mesurés avec Lighthouse mobile : 100 en accessibilité, bonnes pratiques et SEO sur toutes les pages.
 
